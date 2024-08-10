@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\user_management\delete_user\DeleteUserController;
+use App\Http\Controllers\user_management\edit_user\EditUserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\dashboard\Analytics;
 use App\Http\Controllers\layouts\WithoutMenu;
@@ -115,6 +117,9 @@ Route::get('/tables/basic', [TablesBasic::class, 'index'])->name('tables-basic')
 Route::get('/tables/basic', [ShowAllUserControllerUi::class, 'index'])->name('tables-basic');
 Route::get('/tables/users', [ShowAllUserCotroller::class, 'ShowAll']);
 
-Route::get('/testing', function (){
-  return 'I am Le Bo';
-});
+//Edit
+Route::get('/users/{id}/edit', [EditUserController::class, 'edit'])->name('users.edit');
+Route::put('/users/{id}', [EditUserController::class, 'update'])->name('users.update');
+
+//Delete
+Route::delete('/users/{id}', [DeleteUserController::class, 'destroy'])->name('users.destroy');
