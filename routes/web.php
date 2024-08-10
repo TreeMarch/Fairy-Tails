@@ -49,6 +49,11 @@ use \App\Http\Controllers\ShowAllUserCotroller;
 // Main Page Route
 Route::get('/', [Analytics::class, 'index'])->name('dashboard-analytics');
 
+//test github
+Route::get("/testing",function (){
+  return "i am Quang";
+});
+
 // layout
 Route::get('/layouts/without-menu', [WithoutMenu::class, 'index'])->name('layouts-without-menu');
 Route::get('/layouts/without-navbar', [WithoutNavbar::class, 'index'])->name('layouts-without-navbar');
