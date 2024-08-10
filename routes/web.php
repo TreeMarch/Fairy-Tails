@@ -44,8 +44,8 @@ use App\Http\Controllers\form_layouts\VerticalForm;
 use App\Http\Controllers\form_layouts\HorizontalForm;
 use App\Http\Controllers\tables\Basic as TablesBasic;
 
-use App\Http\Controllers\ShowAllUserControllerUi;
-use App\Http\Controllers\ShowAllUserCotroller;
+use App\Http\Controllers\user_management\show_user\ShowUserControllerUi;
+use App\Http\Controllers\user_management\show_user\ShowUserController;
 // Main Page Route
 Route::get('/', [Analytics::class, 'index'])->name('dashboard-analytics');
 
@@ -112,5 +112,7 @@ Route::get('/tables/basic', [TablesBasic::class, 'index'])->name('tables-basic')
 
 //=====================================================================================================================
 
-Route::get('/tables/basic', [ShowAllUserControllerUi::class, 'index'])->name('tables-basic');
-Route::get('/tables/users', [ShowAllUserCotroller::class, 'ShowAll']);
+
+Route::get('/tables/basic',[ShowUserController::class,'index'])->name('tables-basic');
+Route::get('/tables/users',[ShowUserControllerUi::class,'ShowAll']);
+

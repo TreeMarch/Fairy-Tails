@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\user_management\show_user;
 
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Http\Controllers\ShowAllUserCotroller as ShowAll;
+use App\Http\Controllers\user_management\show_user\ShowUserControllerUi as ShowAll;
 
-
-class ShowAllUserControllerUi extends Controller
+class ShowUserController extends Controller
 {
   public function index(Request $request){
 //      dd($request->key);
