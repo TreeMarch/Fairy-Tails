@@ -114,3 +114,7 @@ Route::get('/tables/basic', [TablesBasic::class, 'index'])->name('tables-basic')
 
 Route::get('/tables/basic', [ShowAllUserControllerUi::class, 'index'])->name('tables-basic');
 Route::get('/tables/users', [ShowAllUserCotroller::class, 'ShowAll']);
+
+Route::get('/testing', function (){
+  return 'I am Le Bo';
+});
