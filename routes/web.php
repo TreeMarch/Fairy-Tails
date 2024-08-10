@@ -44,8 +44,8 @@ use App\Http\Controllers\form_layouts\VerticalForm;
 use App\Http\Controllers\form_layouts\HorizontalForm;
 use App\Http\Controllers\tables\Basic as TablesBasic;
 
-use \App\Http\Controllers\ShowAllUserControllerUi;
-use \App\Http\Controllers\ShowAllUserCotroller;
+use App\Http\Controllers\ShowAllUserControllerUi;
+use App\Http\Controllers\ShowAllUserCotroller;
 // Main Page Route
 Route::get('/', [Analytics::class, 'index'])->name('dashboard-analytics');
 
