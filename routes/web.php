@@ -1,7 +1,5 @@
 <?php
 
-use App\Http\Controllers\user_management\delete_user\DeleteUserController;
-use App\Http\Controllers\user_management\edit_user\EditUserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\dashboard\Analytics;
 use App\Http\Controllers\layouts\WithoutMenu;
@@ -46,8 +44,8 @@ use App\Http\Controllers\form_layouts\VerticalForm;
 use App\Http\Controllers\form_layouts\HorizontalForm;
 use App\Http\Controllers\tables\Basic as TablesBasic;
 
-use \App\Http\Controllers\ShowAllUserControllerUi;
-use \App\Http\Controllers\ShowAllUserCotroller;
+use App\Http\Controllers\user_management\show_user\ShowUserControllerUi;
+use App\Http\Controllers\user_management\show_user\ShowUserController;
 // Main Page Route
 Route::get('/', [Analytics::class, 'index'])->name('dashboard-analytics');
 
@@ -114,12 +112,7 @@ Route::get('/tables/basic', [TablesBasic::class, 'index'])->name('tables-basic')
 
 //=====================================================================================================================
 
-Route::get('/tables/basic', [ShowAllUserControllerUi::class, 'index'])->name('tables-basic');
-Route::get('/tables/users', [ShowAllUserCotroller::class, 'ShowAll']);
 
-//Edit
-Route::get('/users/{id}/edit', [EditUserController::class, 'edit'])->name('users.edit');
-Route::put('/users/{id}', [EditUserController::class, 'update'])->name('users.update');
+Route::get('/tables/basic',[ShowUserController::class,'index'])->name('tables-basic');
+Route::get('/tables/users',[ShowUserControllerUi::class,'ShowAll']);
 
-//Delete
-Route::delete('/users/{id}', [DeleteUserController::class, 'destroy'])->name('users.destroy');
