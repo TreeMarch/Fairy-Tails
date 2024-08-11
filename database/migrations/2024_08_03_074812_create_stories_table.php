@@ -29,6 +29,8 @@ return new class extends Migration
             $table -> string("created_by");
             $table -> string("updated_by");
             $table -> string("deleted_by")->nullable();
+            $table ->string('img_url')->nullable();
+
         });
     }
 
