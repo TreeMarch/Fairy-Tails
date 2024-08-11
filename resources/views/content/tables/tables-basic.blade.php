@@ -25,8 +25,10 @@
           <thead>
           <tr>
             <th>ID</th>
-            <th>Client</th>
-            <th>Users</th>
+            <th>User Name</th>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Email</th>
             <th>Status</th>
             <th>Actions</th>
           </tr>
@@ -34,10 +36,20 @@
           <tbody class="table-border-bottom-0">
           @foreach ( $users as $user)
             <tr>
+              <td>{{ $user->id }}</td>
               <td>{{ $user->user_name }}</td>
+              <td>{{ $user->last_name }}</td>
               <td>{{ $user->phone_number }}</td>
               <td>{{ $user->email }}</td>
-              <td>{{ $user->status }}</td>
+              <td>
+                @if($user->status == -1 )
+                  <span style="color:#F44336" class="badge badge-danger">Banned</span>
+                @elseif($user->status == 0)
+                  <span  style="color:#424242" class="badge badge-secondary">Pending</span>
+                @elseif($user->status == 1)
+                  <span  style="color:#2CFA1F" class="badge badge-success">Active</span>
+                @endif
+              </td>
               <td>
                 <div class="dropdown">
                   <button type="button" class="btn p-0 dropdown-toggle hide-arrow"

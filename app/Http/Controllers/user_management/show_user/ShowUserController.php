@@ -14,7 +14,9 @@ class ShowUserController extends Controller
     if (request('key')) {
       $users = User::where('user_name', 'like', '%' . request('key') . '%')
         ->orWhere('phone_number', 'like', '%' . request('key') . '%')
+        ->orWhere('last_name', 'like', '%' . request('key') . '%')
         ->orWhere('email', 'like', '%' . request('key') . '%')
+        ->orWhere('status', 'like', '%' . request('key') . '%')
         ->paginate(10);
     } else {
       $users = ShowAll::ShowAll();

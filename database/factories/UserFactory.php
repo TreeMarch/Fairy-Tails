@@ -47,7 +47,7 @@ class UserFactory extends Factory
         'salt' => 'salt',
         'current_coin' => 100,
         'is_admin' => false,
-        'status' => 1,
+        'status' => fake()->randomElement([-1,0,1]),
         'created_at' => "$dateNow",
         'updated_at' => "$dateNow",
         'deleted_at' => "$dateNow",
