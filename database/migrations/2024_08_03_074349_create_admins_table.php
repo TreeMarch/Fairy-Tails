@@ -19,6 +19,7 @@ return new class extends Migration
             $table -> string("last_name");
             $table -> string("email");
             $table -> string("phone");
+            $table ->string('url_avatar')->nullable();
             $table -> date("birth");
             $table -> string("salt");
             $table -> boolean("is_admin");

@@ -20,6 +20,7 @@ return new class extends Migration
             $table -> string("last_name");
             $table -> string("email");
             $table -> string("phone_number");
+            $table ->string('url_avatar')->nullable();
             $table -> string("favourite");
             $table -> date("birth");
             $table -> string("salt");
