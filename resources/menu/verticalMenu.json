@@ -12,7 +12,7 @@
           "target": "_blank"
         },
         {
-          "url": "/tables/add-user-ui",
+          "url": "/user-management/create-user",
           "name": "Add User",
           "slug": "laravel-example-user-management",
           "target": "_blank"
