@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\user_management\create_user\CreateUserController;
+use App\Http\Controllers\user_management\create_user\CreateUserControllerUi;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\dashboard\Analytics;
 use App\Http\Controllers\layouts\WithoutMenu;
@@ -116,3 +118,6 @@ Route::get('/tables/basic', [TablesBasic::class, 'index'])->name('tables-basic')
 Route::get('/tables/basic',[ShowUserController::class,'index'])->name('tables-basic');
 Route::get('/tables/users',[ShowUserControllerUi::class,'ShowAll']);
 
+//Add new user
+Route::get('/user-management/create-user', [CreateUserControllerUi::class, 'index']);
+Route::post('/tables/add-user', [CreateUserController::class, 'index']);
