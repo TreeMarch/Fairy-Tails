@@ -23,7 +23,6 @@ class User extends Authenticatable
     'phone_number',
     'status',
     'user_name',
-    'email',
     'password',
     'user_password',
     'first_name',
@@ -31,6 +30,7 @@ class User extends Authenticatable
     'phone_number',
     'favourite',
     'birth',
+    'url_avatar',
   ];
 
   /**
