@@ -121,3 +121,16 @@ Route::get('/tables/users',[ShowUserControllerUi::class,'ShowAll']);
 //Add new user
 Route::get('/user-management/create-user', [CreateUserControllerUi::class, 'index']);
 Route::post('/tables/add-user', [CreateUserController::class, 'index']);
+
+//UI feature#008
+Route::get("/test", function (){
+  return view("content.form-elements.forms-basic-inputs");
+});
+
+Route::get("/test2", function (){
+  return view("generate-story.reading-story");
+});
+
+Route::get("/test3", function (){
+  return view("content.user-interface.ui-carousel");
+});
