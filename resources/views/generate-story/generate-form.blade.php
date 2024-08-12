@@ -46,7 +46,7 @@
                   </label>
                 </div>
                 <div>
-                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Enter your background you want..."></textarea>
+                  <textarea class="form-control" id="custom-background" rows="3" placeholder="Enter your background you want..."></textarea>
                 </div>
               </div>
 
@@ -90,7 +90,7 @@
             </div>
 
             <div class="row gy-6 mt-6">
-              <!--Background-->
+              <!--Lessons-->
               <div class="col">
                 <h3>Lessons</h3>
                 <div class="col-md row d-flex">
@@ -219,3 +219,4 @@
     </div>
   </div>
 @endsection
+

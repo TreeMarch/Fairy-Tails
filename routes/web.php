@@ -48,6 +48,8 @@ use App\Http\Controllers\tables\Basic as TablesBasic;
 
 use App\Http\Controllers\user_management\show_user\ShowUserControllerUi;
 use App\Http\Controllers\user_management\show_user\ShowUserController;
+
+use \App\Http\Controllers\generate_story\generate\GenerateStoryController as GenerateStoryController;
 // Main Page Route
 Route::get('/', [Analytics::class, 'index'])->name('dashboard-analytics');
 
@@ -128,9 +130,13 @@ Route::get("/test", function (){
 });
 
 Route::get("/test2", function (){
-  return view("generate-story.reading-story");
+  return view("generate-story.generate-form");
 });
 
 Route::get("/test3", function (){
   return view("content.user-interface.ui-carousel");
 });
+
+
+
+
