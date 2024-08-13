@@ -130,7 +130,6 @@ Route::post("/story-management/generate-story", [GenerateStoryController::class,
 
 
 
-
 Route::get("/test2", function (){
   return view("generate-story.generate-form");
 });
