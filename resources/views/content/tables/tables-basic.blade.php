@@ -7,7 +7,7 @@
   <div class="card">
     <div class="card-header">
       <div style="display: flex;justify-content: space-between;padding-bottom: 20px;align-items: center">
-        <h5>Table User</h5>
+        <h5>User</h5>
         <form action="" method="get">
           <div class="input-group input-group-sm " style="width: 150px">
             <input style="" type="text" name="key" id="search" class="form-control pull-left"
@@ -72,13 +72,13 @@
           @endforeach
           </tbody>
         </table>
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <div>
-            {!!  $users->links('vendor.pagination.paginate') !!}
-          </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding-top: 20px" >
           <div>
             Showing {{ $users->firstItem() }} to {{ $users->lastItem() }} of
             {{ $users->total() }} entries
+          </div>
+          <div>
+            {!!  $users->links('vendor.pagination.paginate') !!}
           </div>
         </div>
       </div>

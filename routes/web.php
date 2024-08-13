@@ -53,6 +53,9 @@ use App\Http\Controllers\ChatGPTController;
 use App\Http\Controllers\user_management\show_user\ShowUserControllerUi;
 use App\Http\Controllers\user_management\show_user\ShowUserController;
 
+use App\Http\Controllers\generate_story\generate\GenerateStoryControllerUi;
+use App\Http\Controllers\generate_story\generate\GenerateStoryController;
+
 // Main Page Route
 Route::get('/', [Analytics::class, 'index'])->name('dashboard-analytics');
 
@@ -144,14 +147,17 @@ Route::post("/story-management/generate-story", [GenerateStoryController::class,
 
 
 
-
 Route::get("/test2", function (){
-  return view("generate-story.generate-form");
+  return view("generate-story/reading-story");
 });
 
 Route::get("/test3", function (){
-  return view("content.user-interface.ui-carousel");
+  return view("generate-story\summarize-form");
+//  return view("content.user-interface.ui-carousel");
+
 });
+
+
 
 
 
