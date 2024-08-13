@@ -16,25 +16,24 @@ class GenerateStoryController extends Controller
         'Content-Type'  => 'application/json',
       ],
       'json' => [
-        'model' => 'gpt-4',
+        'model' => 'gpt-3.5-turbo',
         'messages' => [
           [
-            'role' => 'system',
-            'content' => 'You are a helpful assistant.'
-          ],
-          [
             'role' => 'user',
-            'content' => 'What is the capital of France?'
+            'content' => 'Hãy viết cho toi 3 doan tom tắt của một câu chuyện, có bối cảnh là cung điện, kể về tình cảm gia đình
+                          Trả về định dạng json, có các trường thông tin như sau:
+                          - "Title" chứa thông tin tên câu truyện.
+                          - "Description" mô tả gắn gọn câu chuyện.
+                          - "img_url" chứa link ảnh thumbanails của truyện.'
           ],
         ],
-        'max_tokens' => 50,
       ],
     ]);
 
     $responseData = json_decode($response->getBody(), true);
+    $answer = json_decode($responseData['choices'][0]['message']['content']);
 
-    $answer = $responseData['choices'][0]['message']['content'];
-
-    return view('generate-story.test', compact('answer'));
+    return $answer;
+//    return view('generate-story.test', compact('answer'));
   }
 }
