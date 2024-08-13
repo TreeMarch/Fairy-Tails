@@ -52,6 +52,7 @@ use App\Http\Controllers\ChatGPTController;
 
 use App\Http\Controllers\user_management\show_user\ShowUserControllerUi;
 use App\Http\Controllers\user_management\show_user\ShowUserController;
+
 // Main Page Route
 Route::get('/', [Analytics::class, 'index'])->name('dashboard-analytics');
 
@@ -117,8 +118,6 @@ Route::get('/form/layouts-horizontal', [HorizontalForm::class, 'index'])->name('
 Route::get('/tables/basic', [TablesBasic::class, 'index'])->name('tables-basic');
 
 //=====================================================================================================================
-//Test ChatGPT
-Route::post('/chatgpt', [ChatGPTController::class, 'getResponseFromChatGPT']);
 
 
 Route::get('/tables/basic',[ShowUserController::class,'index'])->name('tables.basic');
@@ -127,6 +126,7 @@ Route::get('/tables/users',[ShowUserControllerUi::class,'ShowAll']);
 //Add new user
 Route::get('/user-management/create-user', [CreateUserControllerUi::class, 'index']);
 Route::post('/tables/add-user', [CreateUserController::class, 'index']);
+
 
 //Detail
 Route::get('/user-management/{id}/details-user', [DetailUserController::class, 'detail'])->name('users.detail');
@@ -137,3 +137,23 @@ Route::put('/users/{id}', [EditUserController::class, 'update'])->name('users.up
 
 //Delete
 Route::delete('/user-management/{id}/delete-user', [DeleteUserController::class, 'destroy'])->name('users.destroy');
+
+//UI Generate Form
+Route::get("/story-management/generate-story-ui", [GenerateStoryControllerUi::class, "index"]);
+Route::post("/story-management/generate-story", [GenerateStoryController::class, "index"]);
+
+
+
+
+Route::get("/test2", function (){
+  return view("generate-story.generate-form");
+});
+
+Route::get("/test3", function (){
+  return view("content.user-interface.ui-carousel");
+});
+
+
+
+
+
