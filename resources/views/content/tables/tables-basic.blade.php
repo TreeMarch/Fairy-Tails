@@ -37,7 +37,7 @@
           @foreach ( $users as $user)
             <tr>
               <td>{{ $user->id }}</td>
-              <td>{{ $user->user_name }}</td>
+              <td><a href="{{ route('users.detail', $user->id) }}">{{ $user->user_name }}</a></td>
               <td>{{ $user->last_name }}</td>
               <td>{{ $user->phone_number }}</td>
               <td>{{ $user->email }}</td>
@@ -55,10 +55,10 @@
                   <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
                           data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
                   <div class="dropdown-menu">
-                    <a class="dropdown-item" href=""><i
+                    <a class="dropdown-item" href="{{ route('users.edit', $user->id) }}"><i
                         class="bx bx-edit-alt me-2"></i>
                       Edit</a>
-                    <form action="" method="POST" style="display:inline;">
+                    <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display:inline;">
                       @csrf
                       @method('DELETE')
                       <button type="submit" class="dropdown-item" onclick="return confirm('Are you sure you want to delete this user?')">
