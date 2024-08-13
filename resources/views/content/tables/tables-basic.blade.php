@@ -7,7 +7,7 @@
   <div class="card">
     <div class="card-header">
       <div style="display: flex;justify-content: space-between;padding-bottom: 20px;align-items: center">
-        <h5>Table User</h5>
+        <h5>User</h5>
         <form action="" method="get">
           <div class="input-group input-group-sm " style="width: 150px">
             <input style="" type="text" name="key" id="search" class="form-control pull-left"
@@ -37,7 +37,7 @@
           @foreach ( $users as $user)
             <tr>
               <td>{{ $user->id }}</td>
-              <td>{{ $user->user_name }}</td>
+              <td><a href="{{ route('users.detail', $user->id) }}">{{ $user->user_name }}</a></td>
               <td>{{ $user->last_name }}</td>
               <td>{{ $user->phone_number }}</td>
               <td>{{ $user->email }}</td>
@@ -55,10 +55,10 @@
                   <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
                           data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
                   <div class="dropdown-menu">
-                    <a class="dropdown-item" href=""><i
+                    <a class="dropdown-item" href="{{ route('users.edit', $user->id) }}"><i
                         class="bx bx-edit-alt me-2"></i>
                       Edit</a>
-                    <form action="" method="POST" style="display:inline;">
+                    <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display:inline;">
                       @csrf
                       @method('DELETE')
                       <button type="submit" class="dropdown-item" onclick="return confirm('Are you sure you want to delete this user?')">
@@ -72,13 +72,13 @@
           @endforeach
           </tbody>
         </table>
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <div>
-            {!!  $users->links('vendor.pagination.paginate') !!}
-          </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding-top: 20px" >
           <div>
             Showing {{ $users->firstItem() }} to {{ $users->lastItem() }} of
             {{ $users->total() }} entries
+          </div>
+          <div>
+            {!!  $users->links('vendor.pagination.paginate') !!}
           </div>
         </div>
       </div>

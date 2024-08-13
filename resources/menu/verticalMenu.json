@@ -1,7 +1,7 @@
 {
   "menu": [
     {
-      "name": "MENU",
+      "name": "User Management",
       "icon": "menu-icon tf-icons bx bxl-php",
       "slug": "laravel-example",
       "submenu": [
@@ -18,14 +18,14 @@
           "target": "_blank"
         },
         {
-          "url": "/summarize",
+          "url": "/test3",
           "name": "Summarize",
           "slug": "laravel-example-user-management",
           "target": "_blank"
         },
         {
           "name": "Reading Story",
-          "url": "/reading_story/read_page",
+          "url": "/test2",
           "slug": "laravel-example-user-management",
           "target": "_blank"
         }

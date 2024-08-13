@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\user_management\create_user\CreateUserController;
 use App\Http\Controllers\user_management\create_user\CreateUserControllerUi;
+use App\Http\Controllers\user_management\delete_user\DeleteUserController;
+use App\Http\Controllers\user_management\detail_user\DetailUserController;
+use App\Http\Controllers\user_management\edit_user\EditUserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\dashboard\Analytics;
 use App\Http\Controllers\layouts\WithoutMenu;
@@ -45,9 +48,13 @@ use App\Http\Controllers\form_elements\InputGroups;
 use App\Http\Controllers\form_layouts\VerticalForm;
 use App\Http\Controllers\form_layouts\HorizontalForm;
 use App\Http\Controllers\tables\Basic as TablesBasic;
+use App\Http\Controllers\ChatGPTController;
 
 use App\Http\Controllers\user_management\show_user\ShowUserControllerUi;
 use App\Http\Controllers\user_management\show_user\ShowUserController;
+
+use App\Http\Controllers\generate_story\generate\GenerateStoryControllerUi;
+use App\Http\Controllers\generate_story\generate\GenerateStoryController;
 
 // Main Page Route
 Route::get('/', [Analytics::class, 'index'])->name('dashboard-analytics');
@@ -119,12 +126,25 @@ use App\Http\Controllers\generate_story\generate\GenerateStoryController as  Gen
 use App\Http\Controllers\generate_story\summarize\SummarizeControllerUi as SummarizeControllerUi;
 use App\Http\Controllers\generate_story\summarize\SummarizeController as  SummarizeController;
 
-Route::get('/tables/basic',[ShowUserController::class,'index'])->name('tables-basic');
+
+
+Route::get('/tables/basic',[ShowUserController::class,'index'])->name('tables.basic');
 Route::get('/tables/users',[ShowUserControllerUi::class,'ShowAll']);
 
 //Add new user
 Route::get('/user-management/create-user', [CreateUserControllerUi::class, 'index']);
 Route::post('/tables/add-user', [CreateUserController::class, 'index']);
+
+
+//Detail
+Route::get('/user-management/{id}/details-user', [DetailUserController::class, 'detail'])->name('users.detail');
+
+//Edit
+Route::get('/user-management/{id}/edit-user', [EditUserController::class, 'edit'])->name('users.edit');
+Route::put('/users/{id}', [EditUserController::class, 'update'])->name('users.update');
+
+//Delete
+Route::delete('/user-management/{id}/delete-user', [DeleteUserController::class, 'destroy'])->name('users.destroy');
 
 //UI Generate Form
 Route::get("/story-management/generate-story-ui", [GenerateStoryControllerUi::class, "index"]);
@@ -134,13 +154,19 @@ Route::post("/story-management/generate-story", [GenerateStoryController::class,
 Route::get("/story-management/summarize-story-ui",[SummarizeControllerUi::class, "index"]);
 Route::get("/story-management/summarize-story",[SummarizeController::class, "index"]);
 
+
 Route::get("/test2", function (){
-  return view("generate-story.generate-form");
+  return view("generate-story/reading-story");
 });
 
 Route::get("/test3", function (){
-  return view("content.user-interface.ui-carousel");
+  return view("generate-story\summarize-form");
+//  return view("content.user-interface.ui-carousel");
+
 });
+
+
+
 
 
 
