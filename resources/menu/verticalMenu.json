@@ -30,9 +30,32 @@
           "target": "_blank"
         }
       ]
+    },
+    {
+      "name": "Story Management",
+      "icon": "menu-icon tf-icons bx bxl-php",
+      "slug": "laravel-example",
+      "submenu": [
+        {
+          "url": "/story-management/generate-story-ui",
+          "name": "Generate Story",
+          "slug": "laravel-example-user-management",
+          "target": "_blank"
+        },
+        {
+          "url": "/user-management/create-user",
+          "name": "Edit Story",
+          "slug": "laravel-example-user-management",
+          "target": "_blank"
+        },
+        {
+          "url": "/summarize",
+          "name": "Created Story",
+          "slug": "laravel-example-user-management",
+          "target": "_blank"
+        }
+      ]
     }
   ]
-
-
 }
 

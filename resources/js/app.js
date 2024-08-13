@@ -2,30 +2,48 @@ import './bootstrap';
 /*
   Add custom scripts here
 */
-function getFormData() {
-  // Lấy dữ liệu từ textarea
-  var background_custom = document.getElementById("custom-background").value;
-  var character_custom = document.getElementById("character_custom").value;
 
-  // Lấy dữ liệu từ radio button
-  var character = document.querySelector('input[name="character"]:checked').value;
-  var gender = document.querySelector('input[name="gender"]:checked').value;
 
-  // Lấy dữ liệu từ checkbox
-  var hobbies = [];
-  var checkboxes = document.querySelectorAll('input[name="hobbies"]:checked');
-  checkboxes.forEach((checkbox) => {
-    hobbies.push(checkbox.value);
-  });
+// function getFormData() {
+//   // Lấy dữ liệu từ textarea
+//   var custome_background = document.getElementById("custom_background").value;
+//   var custome_character = document.getElementById("custom_character").value;
+//
+//   // Lấy dữ liệu từ radio button
+//   var character = document.querySelector('input[name="character"]:checked').value;
+//   var age_baby = document.querySelector('input[name="baby"]:checked').value;
+//   var age_kid = document.querySelector('input[name="kids"]:checked').value;
+//   var age_children = document.querySelector('input[name="children"]:checked').value;
+//   var size_short = document.querySelector('input[name="short"]:checked').value;
+//   var size_medium = document.querySelector('input[name="medium"]:checked').value;
+//   var size_large = document.querySelector('input[name="larges"]:checked').value;
+//
+//
+//   // Lấy dữ liệu từ checkbox
+//   // Lấy dữ liệu từ các checkbox "background"
+//   var backgrounds = [];
+//   var backgroundCheckboxes = document.querySelectorAll('input[name="background"]:checked');
+//   backgroundCheckboxes.forEach((checkbox) => {
+//     backgrounds.push(checkbox.value);
+//   });
+//
+//   // Lấy dữ liệu từ các checkbox "lesson"
+//   var lessons = [];
+//   var lessonCheckboxes = document.querySelectorAll('input[name="lesson"]:checked');
+//   lessonCheckboxes.forEach((checkbox) => {
+//     lessons.push(checkbox.value);
+//   });
+//
+//   // Ghép các dữ liệu thành một chuỗi
+//   var result = "Name: " + name + "\n";
+//   result += "Gender: " + gender + "\n";
+//   result += "Hobbies: " + hobbies.join(", ");
+//
+//   // Hiển thị kết quả
+//   document.getElementById("result").textContent = result;
+// }
 
-  // Ghép các dữ liệu thành một chuỗi
-  var result = "Name: " + name + "\n";
-  result += "Gender: " + gender + "\n";
-  result += "Hobbies: " + hobbies.join(", ");
 
-  // Hiển thị kết quả
-  document.getElementById("result").textContent = result;
-}
 // forEach
 // var message_summarize = "hãy viết cho toi 3 doan tom tắt của một câu chuyện, có bối cảnh là" + name + ", có nhân vật là" + character + "có bài học là:" + lessons.join(",") + " có độ tuổi là:" + age_range + "có độ dài là:" + size_type + " chia thành nhiều chapter khác nhau khác nhau trong một chapter có tối thiểu 2 trang truyện và tối đa 5 trang truyện" + "Trả về định dạng json, có các trường thông tin như sau:\n" +
 //   "- \"Title\" chứa thông tin tên câu truyện.\n" +

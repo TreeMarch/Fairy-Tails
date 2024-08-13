@@ -49,7 +49,6 @@ use App\Http\Controllers\tables\Basic as TablesBasic;
 use App\Http\Controllers\user_management\show_user\ShowUserControllerUi;
 use App\Http\Controllers\user_management\show_user\ShowUserController;
 
-use \App\Http\Controllers\generate_story\generate\GenerateStoryController as GenerateStoryController;
 // Main Page Route
 Route::get('/', [Analytics::class, 'index'])->name('dashboard-analytics');
 
@@ -115,7 +114,8 @@ Route::get('/form/layouts-horizontal', [HorizontalForm::class, 'index'])->name('
 Route::get('/tables/basic', [TablesBasic::class, 'index'])->name('tables-basic');
 
 //=====================================================================================================================
-
+use App\Http\Controllers\generate_story\generate\GenerateStoryControllerUi as GenerateStoryControllerUi;
+use App\Http\Controllers\generate_story\generate\GenerateStoryController as  GenerateStoryController;
 
 Route::get('/tables/basic',[ShowUserController::class,'index'])->name('tables-basic');
 Route::get('/tables/users',[ShowUserControllerUi::class,'ShowAll']);
@@ -124,10 +124,12 @@ Route::get('/tables/users',[ShowUserControllerUi::class,'ShowAll']);
 Route::get('/user-management/create-user', [CreateUserControllerUi::class, 'index']);
 Route::post('/tables/add-user', [CreateUserController::class, 'index']);
 
-//UI feature#008
-Route::get("/test", function (){
-  return view("content.form-elements.forms-basic-inputs");
-});
+//UI Generate Form
+Route::get("/story-management/generate-story-ui", [GenerateStoryControllerUi::class, "index"]);
+Route::post("/story-management/generate-story", [GenerateStoryController::class, "index"]);
+
+
+
 
 Route::get("/test2", function (){
   return view("generate-story.generate-form");
