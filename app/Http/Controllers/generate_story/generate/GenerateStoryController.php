@@ -3,13 +3,21 @@
 namespace App\Http\Controllers\generate_story\generate;
 
 use App\Http\Controllers\Controller;
+use App\Models\Summarize;
 use GuzzleHttp\Client;
+use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 
 class GenerateStoryController extends Controller
 {
-  public function index()
+  public function index(Request $request)
   {
+    $message = $request->input('message');
+
     $client = new Client();
+
     $response = $client->post('https://api.openai.com/v1/chat/completions', [
       'headers' => [
         'Authorization' => 'Bearer ' . env('OPENAI_API_KEY'),
@@ -20,20 +28,27 @@ class GenerateStoryController extends Controller
         'messages' => [
           [
             'role' => 'user',
-            'content' => 'Hãy viết cho toi 3 doan tom tắt của một câu chuyện, có bối cảnh là cung điện, kể về tình cảm gia đình
-                          Trả về định dạng json, có các trường thông tin như sau:
-                          - "Title" chứa thông tin tên câu truyện.
-                          - "Description" mô tả gắn gọn câu chuyện.
-                          - "img_url" chứa link ảnh thumbanails của truyện.'
+            'content' => $message,
           ],
         ],
       ],
     ]);
 
     $responseData = json_decode($response->getBody(), true);
-    $answer = json_decode($responseData['choices'][0]['message']['content']);
 
-    return $answer;
-//    return view('generate-story.test', compact('answer'));
+    // Lấy nội dung phản hồi từ ChatGPT và kiểm tra xem nó có phải là mảng không
+    $answers = json_decode($responseData['choices'][0]['message']['content'], true);
+
+//    $jsonData = $answers;
+
+    foreach ($answers as $answer) {
+      Summarize::create([
+        'story_id' => "000".Str::random(4),
+        'title' => $answer['title'],
+        'description' => $answer['Description'],
+        'img_url' => $answer['img_url'],
+      ]);
+    }
+    return "done";
   }
 }

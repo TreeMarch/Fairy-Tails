@@ -116,6 +116,8 @@ Route::get('/tables/basic', [TablesBasic::class, 'index'])->name('tables-basic')
 //=====================================================================================================================
 use App\Http\Controllers\generate_story\generate\GenerateStoryControllerUi as GenerateStoryControllerUi;
 use App\Http\Controllers\generate_story\generate\GenerateStoryController as  GenerateStoryController;
+use App\Http\Controllers\generate_story\summarize\SummarizeControllerUi as SummarizeControllerUi;
+use App\Http\Controllers\generate_story\summarize\SummarizeController as  SummarizeController;
 
 Route::get('/tables/basic',[ShowUserController::class,'index'])->name('tables-basic');
 Route::get('/tables/users',[ShowUserControllerUi::class,'ShowAll']);
@@ -128,7 +130,9 @@ Route::post('/tables/add-user', [CreateUserController::class, 'index']);
 Route::get("/story-management/generate-story-ui", [GenerateStoryControllerUi::class, "index"]);
 Route::post("/story-management/generate-story", [GenerateStoryController::class, "index"]);
 
-
+//summarize story
+Route::get("/story-management/summarize-story-ui",[SummarizeControllerUi::class, "index"]);
+Route::get("/story-management/summarize-story",[SummarizeController::class, "index"]);
 
 Route::get("/test2", function (){
   return view("generate-story.generate-form");

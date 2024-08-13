@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('summarize', function (Blueprint $table) {
+        Schema::create('summarizes', function (Blueprint $table) {
             $table->bigInteger("id")->autoIncrement();
             $table -> bigInteger("story_id");
             $table -> string("title");
             $table -> string("description");
-            $table -> string("prompt_message");
             $table -> integer("status");
             $table -> dateTime("created_at") -> useCurrentOnUpdate();
             $table -> dateTime("updated_at")-> useCurrentOnUpdate();
