@@ -13,8 +13,10 @@ class SummarizeController extends Controller
   public function index()
   {
     $story_id = session()->get('story_id');
-    $all_summarizes = Summarize::all()->where('story_id', $story_id);
 
-    return redirect("/story-management/summarize-story-ui", compact('all_summarizes'));
+    $all_summarizes = Summarize::all()->where("story_id", "$story_id");
+
+//    return $all_summarizes;
+    return view("generate-story.summarize-form", compact("all_summarizes"));
   }
 }

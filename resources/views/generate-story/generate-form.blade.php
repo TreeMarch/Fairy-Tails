@@ -313,54 +313,15 @@
       </div>
     </div>
   </div>
+
 {{--  <button type="button" onclick="getDataPrompt()">button</button>--}}
-
-
+{{--  <button type="button" onclick="getDataPrompt2()">button</button>--}}
   <div id="selected"></div>
+
+
+
 @endsection
-
+{{--<script src="{{asset("resources/js/app.js")}}"></script>--}}
 <script>
-  function getDataPrompt(){
-    // background
-    const backgroundSelected = document.querySelector('input[name="background"]:checked').value;
-    const customBackground = document.querySelector('textarea[name="background"]').value;
 
-    //character
-    const characterSelected = document.querySelector('input[name="character"]:checked').value;
-    const customCharacter = document.querySelector('textarea[name="character"]').value;
-
-    // lessons
-    const lessonSelected=[];
-    const lesson = document.querySelectorAll('input[name="lesson"]:checked');
-    lesson.forEach((checkbox)=> {
-      lessonSelected.push(checkbox.value);
-    })
-
-    //Age range
-    const ageRange = document.querySelector('input[name="age-range"]:checked').value;
-
-    //size type
-    const sizeType = document.querySelector('input[name="size-type"]:checked').value;
-
-    //chapter number
-    const chapter = document.querySelector('input[name="chapter"]:checked').value;
-
-    // window.alert(backgroundSelected + customBackground + characterSelected + lessonSelected + ageRange + sizeType +  chapter);
-
-    var message_summarize = "hãy viết cho tôi 3 câu truyện tóm tắt ," +
-      "có bối cảnh là" + backgroundSelected + customBackground +
-      ",có nhân vật là" + characterSelected +
-      "có bài học là:" + lessonSelected.join(",") +
-      " có độ tuổi là:" + ageRange +
-      "có độ dài là:" + sizeType +
-      "có số lượng chapter là: " + chapter +
-      "Trả về định dạng json, có các trường thông tin như sau:\n" +
-  "- \"Title\" chứa thông tin tên câu truyện.\n" +
-  "- \"Description\" mô tả gắn gọn câu chuyện.\n" +
-  "- \"img_url\" chứa link ảnh thumbanails của truyện.";
-
-    document.getElementById('messageInput').value = message_summarize
-
-    console.log(document.getElementById('messageInput').value = message_summarize)
-  }
 </script>

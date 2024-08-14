@@ -5,13 +5,15 @@
   'resources/assets/vendor/libs/popper/popper.js',
   'resources/assets/vendor/js/bootstrap.js',
   'resources/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js',
-  'resources/assets/vendor/js/menu.js'
+  'resources/assets/vendor/js/menu.js',
+
 ])
 
 @yield('vendor-script')
 <!-- END: Page Vendor JS-->
 <!-- BEGIN: Theme JS-->
-@vite(['resources/assets/js/main.js'])
+@vite(['resources/assets/js/main.js',])
+@vite(['resources/assets/js/app.js',])
 
 <!-- END: Theme JS-->
 <!-- Pricing Modal JS-->
