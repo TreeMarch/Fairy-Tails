@@ -18,7 +18,7 @@
           "target": "_blank"
         },
         {
-          "url": "/test3",
+          "url": "/story-management/summarize-story-ui",
           "name": "Summarize",
           "slug": "laravel-example-user-management",
           "target": "_blank"

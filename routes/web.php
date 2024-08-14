@@ -48,7 +48,7 @@ use App\Http\Controllers\form_elements\InputGroups;
 use App\Http\Controllers\form_layouts\VerticalForm;
 use App\Http\Controllers\form_layouts\HorizontalForm;
 use App\Http\Controllers\tables\Basic as TablesBasic;
-use App\Http\Controllers\ChatGPTController;
+//use App\Http\Controllers\ChatGPTController;
 
 use App\Http\Controllers\user_management\show_user\ShowUserControllerUi;
 use App\Http\Controllers\user_management\show_user\ShowUserController;
@@ -153,11 +153,3 @@ Route::post("/story-management/generate-story", [GenerateStoryController::class,
 //summarize story
 Route::get("/story-management/summarize-story-ui",[SummarizeControllerUi::class, "index"]);
 Route::get("/story-management/summarize-story",[SummarizeController::class, "index"]);
-
-
-
-
-
-
-
-
