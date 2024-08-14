@@ -121,8 +121,8 @@ Route::get('/form/layouts-horizontal', [HorizontalForm::class, 'index'])->name('
 Route::get('/tables/basic', [TablesBasic::class, 'index'])->name('tables-basic');
 
 //=====================================================================================================================
-use App\Http\Controllers\generate_story\generate\GenerateStoryControllerUi as GenerateStoryControllerUi;
-use App\Http\Controllers\generate_story\generate\GenerateStoryController as  GenerateStoryController;
+//use App\Http\Controllers\generate_story\generate\GenerateStoryControllerUi as GenerateStoryControllerUi;
+//use App\Http\Controllers\generate_story\generate\GenerateStoryController as  GenerateStoryController;
 use App\Http\Controllers\generate_story\summarize\SummarizeControllerUi as SummarizeControllerUi;
 use App\Http\Controllers\generate_story\summarize\SummarizeController as  SummarizeController;
 
@@ -154,16 +154,6 @@ Route::post("/story-management/generate-story", [GenerateStoryController::class,
 Route::get("/story-management/summarize-story-ui",[SummarizeControllerUi::class, "index"]);
 Route::get("/story-management/summarize-story",[SummarizeController::class, "index"]);
 
-
-Route::get("/test2", function (){
-  return view("generate-story/reading-story");
-});
-
-Route::get("/test3", function (){
-  return view("generate-story\summarize-form");
-//  return view("content.user-interface.ui-carousel");
-
-});
 
 
 

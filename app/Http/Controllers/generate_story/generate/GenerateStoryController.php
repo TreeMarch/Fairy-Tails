@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\generate_story\generate;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\generate_story\summarize\SummarizeController;
 use App\Models\Summarize;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
@@ -41,14 +42,26 @@ class GenerateStoryController extends Controller
 
 //    $jsonData = $answers;
 
+    $random_story_id = rand(100,10000);
+     ;//se chinh lai story_id thanh kieu du lieu string de lay id co random ca chu cai
     foreach ($answers as $answer) {
-      Summarize::create([
-        'story_id' => "000".Str::random(4),
-        'title' => $answer['title'],
-        'description' => $answer['Description'],
-        'img_url' => $answer['img_url'],
-      ]);
+        $summarizes = new Summarize();
+        $summarizes -> story_id = $random_story_id;
+        $summarizes -> title = $answer['Title'];
+        $summarizes -> description = $answer['Title'];//$answer['Description'] vi dai qua khong luu duoc vao database
+        $summarizes -> prompt_message = "null - this will be delete";// se xoa di
+        $summarizes -> status = 1;
+        $summarizes -> img_url = $answer['img_url'];
+        $summarizes -> deleted_at = Carbon::now();
+        $summarizes -> created_by = "user";
+        $summarizes -> updated_by = "user";
+        $summarizes -> deleted_by = "user";
+
+        $summarizes -> save();
     }
-    return "done";
+    $story_id = $random_story_id;
+    session(['story_id' => $random_story_id]);
+
+    return redirect()->action([SummarizeController::class, 'index'])->with('story_id', $story_id);
   }
 }

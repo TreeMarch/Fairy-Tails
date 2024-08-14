@@ -12,25 +12,9 @@ class SummarizeController extends Controller
 {
   public function index()
   {
-    $dt = Carbon::now();
-    $dateNow = $dt->toDateTimeString();
-    $answers = session("answers");
-    foreach ($answers['stories'] as $answer) {
-//      $summarize = new Summarize();
-//      $summarize -> title = $answer['Title'];
-//      $summarize -> description = $answer['Description'];
-//      $summarize -> img_url = $answer['img_url'];
-//      $summarize -> story_id = "000".Str::random(4);
-//      $summarize -> status = 1;
-//      $summarize -> created_at = "$dateNow";
-//      $summarize -> updated_at = "$dateNow";
-//      $summarize -> deleted_at = "$dateNow";
-//      $summarize -> created_by = "user";
-//      $summarize -> updated_by = "user";
-//      $summarize -> deleted_by = "user";
-//
-//      $summarize -> save();
-    }
-    return "done";
+    $story_id = session()->get('story_id');
+    $all_summarizes = Summarize::all()->where('story_id', $story_id);
+
+    return redirect("/story-management/summarize-story-ui", compact('all_summarizes'));
   }
 }
