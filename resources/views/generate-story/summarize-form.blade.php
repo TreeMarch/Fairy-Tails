@@ -1,8 +1,12 @@
+{{--@php--}}
+{{--  $all_summarizes = session('all_summarizes');--}}
+{{--@endphp--}}
 @extends('layouts/contentNavbarLayout')
 
 @section('title', ' Horizontal Layouts - Forms')
 
 @section('content')
+
   <!-- Basic Layout & Basic with Icons -->
   <div class="row">
     <!-- Basic Layout -->
@@ -20,13 +24,12 @@
                     <p class="card-text">
                       {{$summarize->description}}
                     </p>
-                    <a href="javascript:void(0)" class="btn btn-outline-primary">Choice this story</a>
+                    <a href="{{url("")}}" class="btn btn-outline-primary">Choice this story</a>
                   </div>
                 </div>
               </div>
           @endforeach
           </form>
-
           <div class="d-flex w-100 justify-content-center mt-6">
             <button type="button" class="btn btn-primary m-2">
               <span class="tf-icons bx bx-book bx-18px me-2"></span>Back to Generate
@@ -41,3 +44,7 @@
     </div>
   </div>
 @endsection
+<script>
+
+</script>
+
