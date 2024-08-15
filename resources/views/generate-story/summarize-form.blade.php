@@ -14,7 +14,7 @@
       <div class="card mb-6">
         <div class="card-body">
           @foreach($all_summarizes as $summarize)
-          <form method="post" action="/tables/add-user" class="d-flex row">
+          <form method="post" action="/story-management/generate-detail" class="d-flex row">
             @csrf <!-- {{ csrf_field() }} -->
               <div class="col-md-6 col-lg-4">
                 <div class="card h-100">
@@ -24,7 +24,8 @@
                     <p class="card-text">
                       {{$summarize->description}}
                     </p>
-                    <a href="{{url("")}}" class="btn btn-outline-primary">Choice this story</a>
+                    <input type="submit" class="btn btn-outline-primary" value="Choice this story"/>
+                    <input type="hidden" name="summarize_id" value="{{$summarize->id}}">
                   </div>
                 </div>
               </div>

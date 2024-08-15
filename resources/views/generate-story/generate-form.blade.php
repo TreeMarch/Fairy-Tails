@@ -314,8 +314,8 @@
     </div>
   </div>
 
+  <button type="button" onclick="getDataPrompt()">button</button>
 {{--  <button type="button" onclick="getDataPrompt()">button</button>--}}
-{{--  <button type="button" onclick="getDataPrompt2()">button</button>--}}
   <div id="selected"></div>
 
 
