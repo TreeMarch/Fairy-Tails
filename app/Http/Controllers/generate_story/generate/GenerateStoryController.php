@@ -49,7 +49,7 @@ class GenerateStoryController extends Controller
         $summarizes -> story_id = $random_story_id;
         $summarizes -> title = $answer['Title'];
         $summarizes -> description = $answer['Description'];//$answer['Description'] vi dai qua khong luu duoc vao database
-        $summarizes -> prompt_message = "null - this will be delete";// se xoa di
+
         $summarizes -> status = 1;
         $summarizes -> img_url = $answer['img_url'];
         $summarizes -> deleted_at = Carbon::now();
