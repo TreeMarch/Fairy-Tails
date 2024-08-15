@@ -42,7 +42,7 @@ class GenerateStoryController extends Controller
 
 //    $jsonData = $answers;
 
-    $random_story_id = rand(100,10000);
+    $random_story_id = "100" . Str::random(4);
      ;//se chinh lai story_id thanh kieu du lieu string de lay id co random ca chu cai
     foreach ($answers as $answer) {
         $summarizes = new Summarize();
@@ -60,7 +60,7 @@ class GenerateStoryController extends Controller
         $summarizes -> save();
     }
     $story_id = $random_story_id;
-    session(['story_id' => $random_story_id]);
+//    session(['story_id' => $random_story_id]);
 
     return redirect()->route('/story-management/summarize-story',['id'=> $story_id]);
   }
@@ -70,17 +70,13 @@ class GenerateStoryController extends Controller
     $summarizeId = $request->input('summarize_id');
     $summary = Summarize::findOrFail($summarizeId);
 
+    // xem lại prompt của anh Xuân
 //    $client = new Client();
 //    $message = 'Viết cho tôi một câu truyện có tên là "Câu chuyện cáo và thỏ",  nội dung câu chuyện xoay quanh 2 nhân vật cáo, thỏ và bạn bè, bối cảnh câu chuyện trong khu rừng sâu, bài học rút ra sau câu chuyện là về tình cảm bạn bè giữa thỏ và cáo. Độ dài câu truyện khoảng 600 từ, chia thành nhiều chapter khác nhau khác nhau trong một chapter có tối thiểu 2 trang truyện và tối đa 5 trang truyện, có lời thoại cho các nhân vật trong truyện, độ tuổi câu chuyện là khoang 6 tuổi.
 //    Trả về định dạng json, có các trường thông tin như sau:
-//    - "Title" chứa thông tin tên câu truyện.
-//    - "Chapter" Trong chapter chứa 3 trường thông tin bên trong, "Content" chứa thông tin về lời dẫn truyện, "Character" chứa thông tin nhân vật, "Dialogue" chứa lời thoại của từng nhân vật.
-//    - "Lesson" chứa thông tin bài học rút ra sau câu truyện.
-//    - "Size_type" chứa thông tin độ dài câu truyện.
-//    - "Age_range" chứa thông tin độ tuổi câu truyện.
-//    - "Background" chứa thông tin bối cảnh câu truyện.
-//    - "Use_coin" chứa thông tin số tiền sử dụng để tạo câu truyện';
-//
+//    - Trường "$Title" chứa tên câu truyện.
+//    - Trường "$Chapter" chứa 2 trường thông tin bên trong: "$Heading" chứa tiêu để của chapter ,"$Description" chứa thông tin về lời dẫn truyện
+
 //    $response = $client->post('https://api.openai.com/v1/chat/completions', [
 //      'headers' => [
 //        'Authorization' => 'Bearer ' . env('OPENAI_API_KEY'),
@@ -103,6 +99,7 @@ class GenerateStoryController extends Controller
 
 //    return $content['Chapter'];
 //    $chapters = $content['Chapter'];
+
     $chapters = json_decode('[
     {
         "Content": "Trong khu rừng sâu, có hai người bạn thân là cáo và thỏ. Họ luôn luôn bên cạnh nhau và chia sẻ mọi điều trong cuộc sống.",

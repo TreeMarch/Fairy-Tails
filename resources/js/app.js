@@ -2,9 +2,6 @@ import './bootstrap';
 
 
 
-
-
-
 // function getFormData() {
 //   // Lấy dữ liệu từ textarea
 //   var custome_background = document.getElementById("custom_background").value;

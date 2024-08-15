@@ -13,17 +13,17 @@ return new class extends Migration
     {
         Schema::create('summarizes', function (Blueprint $table) {
             $table->bigInteger("id")->autoIncrement();
-            $table -> bigInteger("story_id");
+            $table -> string("story_id");
             $table -> string("title");
             $table -> string("description");
             $table -> integer("status");
+            $table-> string("thumbnail_url");
             $table -> dateTime("created_at") -> useCurrentOnUpdate();
             $table -> dateTime("updated_at")-> useCurrentOnUpdate();
             $table -> dateTime("deleted_at") -> useCurrentOnUpdate();
             $table -> string("created_by");
             $table -> string("updated_by");
             $table -> string("deleted_by")->nullable();
-            $table ->string('img_url')->nullable();
         });
     }
 

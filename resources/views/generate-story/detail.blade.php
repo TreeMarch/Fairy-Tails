@@ -14,7 +14,7 @@
 {{--            // active--}}
             @foreach($chapters as $chapter)
               <div class="card accordion-item">
-                <form action="/story/save-page">
+                <form method="post" action="/story/save-page">
                   <input type="hidden" name="page" value="1">
                   <input type="hidden" name="story_id" value="1">
                   <h2 class="accordion-header" id="headingOne">
@@ -31,7 +31,7 @@
                       <img src="https://th.bing.com/th/id/R.df15156a7cf3d61b0e42f15d314b9dd4?rik=M14bF7eJmAtirw&pid=ImgRaw&r=0" alt="" class="img-fluid"/>
                       <input type="hidden" name="page1_image" value="https://th.bing.com/th/id/R.df15156a7cf3d61b0e42f15d314b9dd4?rik=M14bF7eJmAtirw&pid=ImgRaw&r=0">
                     </div>
-                    <button class="btn btn-primary m-2">Save</button>
+                    <button type="submit" class="btn btn-primary m-2">Save</button>
                   </div>
                 </form>
 

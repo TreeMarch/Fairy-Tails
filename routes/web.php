@@ -59,7 +59,6 @@ use App\Http\Controllers\generate_story\generate\GenerateStoryController;
 // Main Page Route
 Route::get('/', [Analytics::class, 'index'])->name('dashboard-analytics');
 
-/
 
 //=====================================================================================================================
 //use App\Http\Controllers\generate_story\generate\GenerateStoryControllerUi as GenerateStoryControllerUi;
