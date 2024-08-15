@@ -10,13 +10,10 @@ use Illuminate\Support\Str;
 
 class SummarizeController extends Controller
 {
-  public function index()
+  public function getStorySummary($id)
   {
-    $story_id = session()->get('story_id');
 
-    $all_summarizes = Summarize::all()->where("story_id", "$story_id");
-
-//    return $all_summarizes;
+    $all_summarizes = Summarize::all()->where("story_id", $id);
     return view("generate-story.summarize-form", compact("all_summarizes"));
   }
 }

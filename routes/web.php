@@ -152,7 +152,8 @@ Route::post("/story-management/generate-story", [GenerateStoryController::class,
 
 //summarize story
 Route::get("/story-management/summarize-story-ui",[SummarizeControllerUi::class, "index"]);
-Route::get("/story-management/summarize-story",[SummarizeController::class, "index"]);
+Route::get("/story-management/summarize-story/{id}",[SummarizeController::class, "getStorySummary"]);
+Route::post("/story-management/generate-detail",[GenerateStoryController::class, "generateDetail"]);
 
 
 
