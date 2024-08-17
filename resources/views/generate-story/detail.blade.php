@@ -7,7 +7,7 @@
   <h5>Detail Story</h5>
   <div class="row">
     <!-- Basic Layout -->
-    
+
     <div class="col-md">
       <div class="accordion mt-4" id="accordionExample">
         @foreach($summarizes as $index => $chapter)
@@ -34,7 +34,7 @@
 
                   <div>
                     <button type="submit" class="btn btn-primary">Save</button>
-   
+
                   </div>
                 </form>
               </div>

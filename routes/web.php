@@ -98,5 +98,16 @@ Route::post('/story-management/generate-story', [GenerateStoryController::class,
 Route::get('/generate-story-detail/{id}', [GenerateStoryController::class, 'generateDetail'])->name('generate.story.detail');
 
 
+Route::post('/generate-story', [GenerateStoryController::class, 'index'])->name('generate.story');
+Route::get('/generate-story-detail/{id}', [GenerateStoryController::class, 'generateDetail'])->name('generate.story.detail');
+
+
+//chapter - chi tiết câu lệnh chatgpt
+Route::get('/generate-summarize-detail/{id}', [GenerateStoryController::class, 'generateDetail'])->name('generate.story.summarize-form');
+Route::post('/generate-story-detail', [GenerateStoryController::class, 'sendPromptDetail'])->name('generate.story.summarize-form');
+Route::post('/generate-story-detail/{id}', [GenerateStoryController::class, 'editChapter'])->name('generate.story.detail');
+
+
 Route::get("/story-management/summarize-story",[SummarizeController::class, "index"]);
 
+Route::view('/generate-story-form', 'generate-story');
