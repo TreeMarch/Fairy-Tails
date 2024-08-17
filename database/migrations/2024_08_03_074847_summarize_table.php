@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('summarizes', function (Blueprint $table) {
             $table->bigInteger("id")->autoIncrement();
             $table -> string("story_id");
-            $table -> string("title");
+            $table -> longText("title");
             $table -> longText("description");
             $table -> integer("status");
             $table-> string("thumbnail_url");

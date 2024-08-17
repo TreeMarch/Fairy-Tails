@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('chapter', function (Blueprint $table) {
+        Schema::create('chapters', function (Blueprint $table) {
             $table->bigIncrements('id')->autoIncrement();
             $table -> string("story_id");
             $table-> string('heading');
-            $table-> string("description");
+            $table-> longText("description");
             $table-> string("thumbnail_url");
             $table -> dateTime("created_at") -> useCurrentOnUpdate();
             $table -> dateTime("updated_at")-> useCurrentOnUpdate();

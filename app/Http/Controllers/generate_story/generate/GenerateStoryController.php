@@ -13,8 +13,13 @@ use Illuminate\Support\Carbon;
 
 class GenerateStoryController extends Controller
 {
+  protected $random_story_id;
+  public function __construct(){
+    // Tạo một story_id ngẫu nhiên
+    $this->random_story_id = "100" . Str::random(4);
+  }
   // Xử lý message người dùng nhập vào và save vào DB
-  public function index(Request $request)
+  public  function index(Request $request)
   {
     // Nhận dữ liệu từ form
     $title = $request->input('title');
@@ -51,13 +56,12 @@ class GenerateStoryController extends Controller
     $responseData = json_decode($response->getBody(), true);
     $answers = json_decode($responseData['choices'][0]['message']['content'], true);
 
-    // Tạo một story_id ngẫu nhiên
-    $random_story_id = "100" . Str::random(4);
+
 
     // Lưu kết quả vào cơ sở dữ liệu
     foreach ($answers as $answer) {
       $summarizes = new Summarize();
-      $summarizes->story_id = $random_story_id;
+      $summarizes->story_id = $this->random_story_id;
       $summarizes->title = $answer['Title'];
       $summarizes->description = $answer['Description'];
       $summarizes->status = 1;
@@ -71,35 +75,121 @@ class GenerateStoryController extends Controller
 
       $summarizes->save();
     }
-    $story_id = $random_story_id;
+
     // Chuyển hướng đến trang chi tiết với story_id
-    return redirect()->route('generate.story.detail', ['id' => $random_story_id]);
+    return redirect()->route('generate.story.detail', ['id' => $this->random_story_id]);
   }
 
   public function generateDetail(Request $request, $id)
   {
-    // Lấy dữ liệu từ cơ sở dữ liệu dựa trên story_id
+    // Lấy dữ liệu từ cơ sở dữ liệu dựa trên story_id -> 3 summarizes => summarizes-form
     $summarize = Summarize::where('story_id', $id)->firstOrFail();
 
-    // call api chatgpt câu lệnh chi tiết - Detail
+    // call api chatgpt câu lệnh chi tiết - Detail => lưu vào stories,chapter(mỗi chapter là một bản ghi -> db
 
     // JSON của các chương (Description)
-    $chapters = json_decode($summarize->description, true);
+//    $chapters = json_decode($summarize->description, true);
 
     // Kiểm tra JSON
-    if (!is_array($chapters)) {
-      $chapters = [];
-
-    }
+//    if (!is_array($chapters)) {
+//      $chapters = [];
+//
+//    }
     // Lấy dữ liệu từ bảng summarizes dựa trên story_id
     $summarizes = DB::table('summarizes')->where('story_id', $id)->get();
 
-    return view('generate-story.detail', compact('summarizes'),[
+    return view('generate-story.summarize-form', compact('summarizes'),[
       'summarizes' => [$summarize],
       'title' => $summarize->title,
       'description' => $summarize->description,
       'thumbnail_url' => $summarize->thumbnail_url,
-      'chapters' => $chapters,
+    ]);
+  }
+
+
+  public function sendPromptDetail(Request $request){
+    $title = $request->input('summarize_title');
+    $background = $request->input('summarize_description');
+
+    $message_detail = 'Từ câu truyện '.$title.', có tóm tắt là '.$background. ' , bạn có thể
+Trả về định dạng json, có các trường thông tin như sau:
+Trường "Title" chứa tên câu truyện .
+Trường "Content" chứa lời lời dẫn truyện .
+Trường "Chapter" chứa 2 trường thông tin bên trong: "Heading" chứa tiêu để của chapter, "Description" chứa thông tin về lời dẫn truyện. Trường thông tin này có nhiều hơn 5 chapter';
+
+    // Gửi request đến OpenAI API
+    $client_detail = new Client();
+    $response = $client_detail->post('https://api.openai.com/v1/chat/completions', [
+      'headers' => [
+        'Authorization' => 'Bearer ' . env('OPENAI_API_KEY'),
+        'Content-Type' => 'application/json',
+      ],
+      'json' => [
+        'model' => 'gpt-3.5-turbo',
+        'messages' => [
+          [
+            'role' => 'user',
+            'content' => $message_detail,
+          ],
+        ],
+      ],
+    ]);
+
+    // Giả sử response từ OpenAI là dạng JSON với các trường Title, Description, thumbnail_url
+    $responseData = json_decode($response->getBody(), true);
+    $answers = json_decode($responseData['choices'][0]['message']['content'], true);
+
+    $story_chapters = [];
+    // //save vao bang chapter
+  foreach ($answers['Chapter'] as $answer) {
+      $chapter = new Chapter();
+      $chapter->story_id = $this->random_story_id;
+      $chapter->heading =  $answer['Heading'];
+      $chapter->description = $answer['Description'];
+      $chapter->thumbnail_url = "https://inkythuatso.com/uploads/thumbnails/800/2022/05/hinh-anh-gai-xinh-toc-ngan-15-tuoi-07-10-23-26.jpg";
+      $chapter->created_at = Carbon::now();
+      $chapter->updated_at = Carbon::now();
+      $chapter->deleted_at = Carbon::now();
+      $chapter->created_by = "user";
+      $chapter->updated_by = "user";
+      $chapter->deleted_by = null; // Không xóa thì set null
+
+      $chapter->save();
+    }
+  //save vào bảng stories
+    $story = new Story();
+    $story->story_id = $this->random_story_id;
+    $story->account_id = "aido123123";
+    $story->title =  $answers['Title'];
+    $story->content = $answers['Content'];
+    $story->thumbnails_url = "https://inkythuatso.com/uploads/thumbnails/800/2022/05/hinh-anh-gai-xinh-toc-ngan-15-tuoi-07-10-23-26.jpg";
+    $story->created_at = Carbon::now();
+    $story->updated_at = Carbon::now();
+    $story->deleted_at = Carbon::now();
+    $story->created_by = "user";
+    $story->updated_by = "user";
+    $story->deleted_by = null; // Không xóa thì set null
+
+    $story->save();
+
+    return  redirect()->route('generate.story.detail',['id' => $this->random_story_id]);
+
+  }
+
+  public function editChapter(Request $request,$id){
+    $chapter = Chapter::where('story_id', $id)->firstOrFail();
+    $story = Story::where('story_id', $id)->firstOrFail();
+
+    $chapters = DB::table('chapters')->where('story_id', $id)->get();
+    $stories = DB::table('stories')->where('story_id', $id)->get();
+
+    return view('generate-story.summarize-form', compact('chapters','stories'),[
+      'chapters' => [$chapter],
+      'title' => $story->title,
+      'content' => $story->content,
+      'heading' => $chapter->heading,
+      'description' => $chapter->description,
+      'thumbnail_url' => $chapter->thumbnail_url,
     ]);
   }
 }
