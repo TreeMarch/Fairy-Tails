@@ -68,7 +68,7 @@ class GenerateStoryController extends Controller
 
       $summarizes->save();
     }
-
+    $story_id = $random_story_id;
     // Chuyển hướng đến trang chi tiết với story_id
     return redirect()->route('generate.story.detail', ['id' => $random_story_id]);
   }
@@ -84,6 +84,7 @@ class GenerateStoryController extends Controller
     // Kiểm tra JSON
     if (!is_array($chapters)) {
       $chapters = [];
+
     }
     // Lấy dữ liệu từ bảng summarizes dựa trên story_id
     $summarizes = DB::table('summarizes')->where('story_id', $id)->get();

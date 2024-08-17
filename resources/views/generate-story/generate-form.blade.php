@@ -16,7 +16,6 @@
                 <h3>Title</h3>
                 <input name="title" type="text" class="form-control mt-5 mb-4" id="title" placeholder="Title" aria-describedby="defaultFormControlHelp">
               </div>
-
               <!-- Description -->
               <div class="col-md">
                 <h3>Description</h3>
@@ -34,6 +33,7 @@
             <button type="submit" class="btn btn-primary">
               <span class="tf-icons bx bx-send bx-18px me-2"></span>Submit
             </button>
+
           </form>
         </div>
       </div>
