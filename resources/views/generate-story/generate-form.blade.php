@@ -22,6 +22,11 @@
                 <input name="description" type="text" class="form-control mt-5 mb-4" id="description" placeholder="Description" aria-describedby="defaultFormControlHelp">
               </div>
 
+              <div class="col-md">
+                <h3>Character</h3>
+                <input name="character" type="text" class="form-control mt-5 mb-4" id="character" placeholder="Character" aria-describedby="defaultFormControlHelp">
+              </div>
+
               <!-- Thumbnail -->
               <div class="col-md">
                 <h3>Thumbnail</h3>

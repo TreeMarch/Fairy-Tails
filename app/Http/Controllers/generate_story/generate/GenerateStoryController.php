@@ -3,6 +3,8 @@ namespace App\Http\Controllers\generate_story\generate;
 
 use App\Http\Controllers\Controller;
 use App\Models\Summarize;
+use App\Models\Chapter;
+use App\Models\Story;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -17,10 +19,11 @@ class GenerateStoryController extends Controller
     // Nhận dữ liệu từ form
     $title = $request->input('title');
     $description = $request->input('description');
+    $character = $request->input('character');
     $thumbnail = $request->input('thumbnail');
 
     // Tạo message dựa trên input người dùng
-    $message = 'Viết cho tôi 3 câu truyện có tên là "' . $title . '", nội dung câu chuyện xoay quanh nhân vật, bối cảnh câu chuyện trong ' . $description . '.
+    $message = 'Viết cho tôi 3 câu truyện có tên là "' . $title . '", nội dung câu chuyện xoay quanh nhân vật '.$character.', bối cảnh câu chuyện trong ' . $description . '.
      Trả về định dạng json, có các trường thông tin như sau:
      Trường "Title" chứa tên câu truyện.
      Trường "Description" chứa mô tả câu truyện.
@@ -77,6 +80,8 @@ class GenerateStoryController extends Controller
   {
     // Lấy dữ liệu từ cơ sở dữ liệu dựa trên story_id
     $summarize = Summarize::where('story_id', $id)->firstOrFail();
+
+    // call api chatgpt câu lệnh chi tiết - Detail
 
     // JSON của các chương (Description)
     $chapters = json_decode($summarize->description, true);
