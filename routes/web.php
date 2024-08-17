@@ -59,7 +59,6 @@ use App\Http\Controllers\generate_story\generate\GenerateStoryController;
 // Main Page Route
 Route::get('/', [Analytics::class, 'index'])->name('dashboard-analytics');
 
-/
 
 //=====================================================================================================================
 //use App\Http\Controllers\generate_story\generate\GenerateStoryControllerUi as GenerateStoryControllerUi;
@@ -95,6 +94,8 @@ Route::post("/story-management/generate-story", [GenerateStoryController::class,
 Route::get("/story-management/summarize-story-ui",[SummarizeControllerUi::class, "index"]);
 Route::get("/story-management/summarize-story/{id}",[SummarizeController::class, "getStorySummary"]);
 Route::post("/story-management/generate-detail",[GenerateStoryController::class, "generateDetail"]);
+Route::post('/story-management/generate-story', [GenerateStoryController::class, 'index'])->name('generate.story');
+Route::get('/generate-story-detail/{id}', [GenerateStoryController::class, 'generateDetail'])->name('generate.story.detail');
 
 
 Route::get("/story-management/summarize-story",[SummarizeController::class, "index"]);

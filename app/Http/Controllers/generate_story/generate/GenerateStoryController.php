@@ -1,28 +1,37 @@
 <?php
-
 namespace App\Http\Controllers\generate_story\generate;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\generate_story\summarize\SummarizeController;
 use App\Models\Summarize;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Illuminate\Support\Carbon;
 
 class GenerateStoryController extends Controller
 {
+  // Xử lý message người dùng nhập vào và save vào DB
   public function index(Request $request)
   {
-    $message = $request->input('message');
+    // Nhận dữ liệu từ form
+    $title = $request->input('title');
+    $description = $request->input('description');
+    $thumbnail = $request->input('thumbnail');
 
+    // Tạo message dựa trên input người dùng
+    $message = 'Viết cho tôi 3 câu truyện có tên là "' . $title . '", nội dung câu chuyện xoay quanh nhân vật, bối cảnh câu chuyện trong ' . $description . '.
+     Trả về định dạng json, có các trường thông tin như sau:
+     Trường "Title" chứa tên câu truyện.
+     Trường "Description" chứa mô tả câu truyện.
+     Trường "thumbnail_url" chứa thông tin về url ảnh.';
+
+    // Gửi request đến OpenAI API
     $client = new Client();
-
     $response = $client->post('https://api.openai.com/v1/chat/completions', [
       'headers' => [
         'Authorization' => 'Bearer ' . env('OPENAI_API_KEY'),
-        'Content-Type'  => 'application/json',
+        'Content-Type' => 'application/json',
       ],
       'json' => [
         'model' => 'gpt-3.5-turbo',
@@ -35,101 +44,56 @@ class GenerateStoryController extends Controller
       ],
     ]);
 
+    // Giả sử response từ OpenAI là dạng JSON với các trường Title, Description, thumbnail_url
     $responseData = json_decode($response->getBody(), true);
-
-    // Lấy nội dung phản hồi từ ChatGPT và kiểm tra xem nó có phải là mảng không
     $answers = json_decode($responseData['choices'][0]['message']['content'], true);
 
-//    $jsonData = $answers;
+    // Tạo một story_id ngẫu nhiên
+    $random_story_id = "100" . Str::random(4);
 
-    $random_story_id = rand(100,10000);
-     ;//se chinh lai story_id thanh kieu du lieu string de lay id co random ca chu cai
+    // Lưu kết quả vào cơ sở dữ liệu
     foreach ($answers as $answer) {
-        $summarizes = new Summarize();
-        $summarizes -> story_id = $random_story_id;
-        $summarizes -> title = $answer['Title'];
-        $summarizes -> description = $answer['Description'];//$answer['Description'] vi dai qua khong luu duoc vao database
+      $summarizes = new Summarize();
+      $summarizes->story_id = $random_story_id;
+      $summarizes->title = $answer['Title'];
+      $summarizes->description = $answer['Description'];
+      $summarizes->status = 1;
+      $summarizes->thumbnail_url = $answer['thumbnail_url'];
+      $summarizes->created_at = Carbon::now();
+      $summarizes->updated_at = Carbon::now();
+      $summarizes->deleted_at = Carbon::now();
+      $summarizes->created_by = "user";
+      $summarizes->updated_by = "user";
+      $summarizes->deleted_by = null; // Không xóa thì set null
 
-        $summarizes -> status = 1;
-        $summarizes -> img_url = $answer['img_url'];
-        $summarizes -> deleted_at = Carbon::now();
-        $summarizes -> created_by = "user";
-        $summarizes -> updated_by = "user";
-        $summarizes -> deleted_by = "user";
-
-        $summarizes -> save();
+      $summarizes->save();
     }
-    $story_id = $random_story_id;
-    session(['story_id' => $random_story_id]);
 
-    return redirect()->route('/story-management/summarize-story',['id'=> $story_id]);
+    // Chuyển hướng đến trang chi tiết với story_id
+    return redirect()->route('generate.story.detail', ['id' => $random_story_id]);
   }
 
-  public function generateDetail(Request $request)
+  public function generateDetail(Request $request, $id)
   {
-    $summarizeId = $request->input('summarize_id');
-    $summary = Summarize::findOrFail($summarizeId);
+    // Lấy dữ liệu từ cơ sở dữ liệu dựa trên story_id
+    $summarize = Summarize::where('story_id', $id)->firstOrFail();
 
-//    $client = new Client();
-//    $message = 'Viết cho tôi một câu truyện có tên là "Câu chuyện cáo và thỏ",  nội dung câu chuyện xoay quanh 2 nhân vật cáo, thỏ và bạn bè, bối cảnh câu chuyện trong khu rừng sâu, bài học rút ra sau câu chuyện là về tình cảm bạn bè giữa thỏ và cáo. Độ dài câu truyện khoảng 600 từ, chia thành nhiều chapter khác nhau khác nhau trong một chapter có tối thiểu 2 trang truyện và tối đa 5 trang truyện, có lời thoại cho các nhân vật trong truyện, độ tuổi câu chuyện là khoang 6 tuổi.
-//    Trả về định dạng json, có các trường thông tin như sau:
-//    - "Title" chứa thông tin tên câu truyện.
-//    - "Chapter" Trong chapter chứa 3 trường thông tin bên trong, "Content" chứa thông tin về lời dẫn truyện, "Character" chứa thông tin nhân vật, "Dialogue" chứa lời thoại của từng nhân vật.
-//    - "Lesson" chứa thông tin bài học rút ra sau câu truyện.
-//    - "Size_type" chứa thông tin độ dài câu truyện.
-//    - "Age_range" chứa thông tin độ tuổi câu truyện.
-//    - "Background" chứa thông tin bối cảnh câu truyện.
-//    - "Use_coin" chứa thông tin số tiền sử dụng để tạo câu truyện';
-//
-//    $response = $client->post('https://api.openai.com/v1/chat/completions', [
-//      'headers' => [
-//        'Authorization' => 'Bearer ' . env('OPENAI_API_KEY'),
-//        'Content-Type'  => 'application/json',
-//      ],
-//      'json' => [
-//        'model' => 'gpt-3.5-turbo',
-//        'messages' => [
-//          [
-//            'role' => 'user',
-//            'content' => $message,
-//          ],
-//        ],
-//      ],
-//    ]);
-//
-//    $responseData = json_decode($response->getBody(), true);
-    // Lấy nội dung phản hồi từ ChatGPT và kiểm tra xem nó có phải là mảng không
-    //$content = json_decode($responseData['choices'][0]['message']['content'], true);
+    // JSON của các chương (Description)
+    $chapters = json_decode($summarize->description, true);
 
-//    return $content['Chapter'];
-//    $chapters = $content['Chapter'];
-    $chapters = json_decode('[
-    {
-        "Content": "Trong khu rừng sâu, có hai người bạn thân là cáo và thỏ. Họ luôn luôn bên cạnh nhau và chia sẻ mọi điều trong cuộc sống.",
-        "Character": "Cáo, Thỏ",
-        "Dialogue": {
-            "Cáo": "Chúng ta sẽ không bao giờ rời xa nhau đúng không, thỏ?",
-            "Thỏ": "Đúng vậy, chúng ta là bạn tốt của nhau mà."
-        }
-    },
-    {
-        "Content": "Một ngày, thỏ bị mắc kẹt trong một cái bẫy do đội rừng sâu đặt. Cáo đã tìm ra và đã giúp thỏ thoát ra khỏi tình thế nguy hiểm đó.",
-        "Character": "Cáo, Thỏ, Đội rừng sâu",
-        "Dialogue": {
-            "Cáo": "Đừng lo lắng, mình sẽ cứu bạn ra.",
-            "Thỏ": "Cảm ơn bạn rất nhiều, cáo."
-        }
-    },
-    {
-        "Content": "Sau sự việc đó, tình cảm giữa cáo và thỏ trở nên mạnh mẽ hơn. Họ hiểu rằng tình bạn đích thực sẽ luôn giúp đỡ đối phương trong lúc cần.",
-        "Character": "Cáo, Thỏ",
-        "Dialogue": {
-            "Cáo": "Chúng ta là bạn tốt nhất đúng không, thỏ?",
-            "Thỏ": "Đúng vậy, không gì có thể chia lìa chúng ta cả."
-        }
+    // Kiểm tra JSON
+    if (!is_array($chapters)) {
+      $chapters = [];
     }
-]', true);
-    // save du lieu tra ve vao database
-    return view("generate-story.detail", compact('chapters'));
+    // Lấy dữ liệu từ bảng summarizes dựa trên story_id
+    $summarizes = DB::table('summarizes')->where('story_id', $id)->get();
+
+    return view('generate-story.detail', compact('summarizes'),[
+      'summarizes' => [$summarize],
+      'title' => $summarize->title,
+      'description' => $summarize->description,
+      'thumbnail_url' => $summarize->thumbnail_url,
+      'chapters' => $chapters,
+    ]);
   }
 }

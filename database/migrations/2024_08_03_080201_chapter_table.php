@@ -13,19 +13,16 @@ return new class extends Migration
     {
         Schema::create('chapter', function (Blueprint $table) {
             $table->bigIncrements('id')->autoIncrement();
-            $table -> bigInteger("story_id");
-            $table -> bigInteger("summarize_id");
-            $table-> string('title');
-            $table-> string('sub_title');
-            $table-> string('character_id');
-            $table-> string('image_url');
+            $table -> string("story_id");
+            $table-> string('heading');
+            $table-> string("description");
+            $table-> string("thumbnail_url");
             $table -> dateTime("created_at") -> useCurrentOnUpdate();
             $table -> dateTime("updated_at")-> useCurrentOnUpdate();
             $table -> dateTime("deleted_at") -> useCurrentOnUpdate();
             $table -> string("created_by");
             $table -> string("updated_by");
             $table -> string("deleted_by")->nullable();
-            $table ->string('img_url')->nullable();
 
         });
     }
