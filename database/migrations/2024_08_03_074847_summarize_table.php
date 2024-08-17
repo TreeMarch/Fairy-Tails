@@ -15,7 +15,7 @@ return new class extends Migration
             $table->bigInteger("id")->autoIncrement();
             $table -> string("story_id");
             $table -> string("title");
-            $table -> string("description");
+            $table -> longText("description");
             $table -> integer("status");
             $table-> string("thumbnail_url");
             $table -> dateTime("created_at") -> useCurrentOnUpdate();
