@@ -178,8 +178,6 @@ Trường "Chapter" chứa 2 trường thông tin bên trong: "Heading" chứa t
     return redirect()->route('generate.story.chapter', ['id' => $this->random_story_id]);
   }
 
-
-
   public function showChapter(Request $request,$id){
     // Lấy tất cả các chương từ bảng chapters dựa trên story_id
     $chapters = Chapter::where('story_id', $id)->get();
@@ -196,7 +194,6 @@ Trường "Chapter" chứa 2 trường thông tin bên trong: "Heading" chứa t
   }
 
   public function editChapter(Request $request,$id){
-
     $chapters = Chapter::where('story_id', $id)->get();
     $story = Story::where('story_id', $id)->firstOrFail();
 
@@ -208,8 +205,9 @@ Trường "Chapter" chứa 2 trường thông tin bên trong: "Heading" chứa t
     ]);
   }
 
-  public function updateChapter(Request $request, $id)
-  {
+
+  public function updateChapter(Request $request, $id){
+    // Lấy story dựa trên ID
     $story = Story::where('story_id', $id)->firstOrFail();
 
     // Lấy request
