@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\generate_story\reading\ReadingController;
 use App\Http\Controllers\user_management\create_user\CreateUserController;
 use App\Http\Controllers\user_management\create_user\CreateUserControllerUi;
 use App\Http\Controllers\user_management\delete_user\DeleteUserController;
@@ -109,3 +110,6 @@ Route::get('/generate-chapter-detail/{id}', [GenerateStoryController::class, 'sh
 // Route để chỉnh sửa các chương của câu chuyện
 Route::get('/generate-story-detail/{id}/edit', [GenerateStoryController::class, 'editChapter'])->name('generate.story.edit');
 Route::put('/generate-story-detail/{id}/update', [GenerateStoryController::class, 'updateChapter'])->name('generate.story.update');
+
+// Route để hiện toàn bộ câu chuyện
+Route::get('/reading-story-detail/{id}', [ReadingController::class, 'showAllReading'])->name('reading.story.detail');

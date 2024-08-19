@@ -8,6 +8,7 @@
 
 <!-- Core CSS -->
 @vite([
+  '/resources/assets/css/reading.css',
   'resources/assets/vendor/scss/core.scss',
   'resources/assets/vendor/scss/theme-default.scss',
   'resources/assets/css/demo.css'
