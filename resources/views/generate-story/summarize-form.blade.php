@@ -15,7 +15,7 @@
         <div class="card-body">
           <div class="d-flex row">
             @foreach($summarizes as $index => $chapter)
-              <form method="post" action="/generate-story-detail" class="d-flex row">
+              <form method="post" action="{{ route('generate.story.summarize-form') }}" class="d-flex row">
                 @csrf <!-- {{ csrf_field() }} -->
                 <div class="col-md-6 col-lg-4">
                   <div class="card h-100">
@@ -26,8 +26,9 @@
                       <p class="card-text">
                         {{$chapter->description}}
                       </p>
+                      <input type="hidden" name="summarize_title" value="{{ $chapter->title }}">
+                      <input type="hidden" name="summarize_description" value="{{ $chapter->description }}">
                       <input type="submit" class="btn btn-outline-primary" value="Choice this story"/>
-                      <input type="hidden" name="summarize_description" value="{{$chapter->description}}">
                     </div>
                   </div>
                 </div>

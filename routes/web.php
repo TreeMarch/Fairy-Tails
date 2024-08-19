@@ -90,24 +90,22 @@ Route::delete('/user-management/{id}/delete-user', [DeleteUserController::class,
 Route::get("/story-management/generate-story-ui", [GenerateStoryControllerUi::class, "index"]);
 Route::post("/story-management/generate-story", [GenerateStoryController::class, "index"]);
 
-//summarize story
-Route::get("/story-management/summarize-story-ui",[SummarizeControllerUi::class, "index"]);
-Route::get("/story-management/summarize-story/{id}",[SummarizeController::class, "getStorySummary"]);
-Route::post("/story-management/generate-detail",[GenerateStoryController::class, "generateDetail"]);
-Route::post('/story-management/generate-story', [GenerateStoryController::class, 'index'])->name('generate.story');
-Route::get('/generate-story-detail/{id}', [GenerateStoryController::class, 'generateDetail'])->name('generate.story.detail');
 
+Route::get('/story-management/summarize-story-ui', [SummarizeControllerUi::class, 'index']);
+Route::get('/story-management/summarize-story/{id}', [SummarizeController::class, 'getStorySummary']);
 
+// Route để tạo story (từ form nhập ban đầu)
 Route::post('/generate-story', [GenerateStoryController::class, 'index'])->name('generate.story');
+
+// Route để hiển thị chi tiết câu chuyện sau khi được generate
 Route::get('/generate-story-detail/{id}', [GenerateStoryController::class, 'generateDetail'])->name('generate.story.detail');
 
-
-//chapter - chi tiết câu lệnh chatgpt
-Route::get('/generate-summarize-detail/{id}', [GenerateStoryController::class, 'generateDetail'])->name('generate.story.summarize-form');
+// Route để gọi phương thức sendPromptDetail
 Route::post('/generate-story-detail', [GenerateStoryController::class, 'sendPromptDetail'])->name('generate.story.summarize-form');
-Route::post('/generate-story-detail/{id}', [GenerateStoryController::class, 'editChapter'])->name('generate.story.detail');
 
+// Route để hiển thị các chapter
+Route::get('/generate-chapter-detail/{id}', [GenerateStoryController::class, 'showChapter'])->name('generate.story.chapter');
 
-Route::get("/story-management/summarize-story",[SummarizeController::class, "index"]);
-
-Route::view('/generate-story-form', 'generate-story');
+// Route để chỉnh sửa các chương của câu chuyện
+Route::get('/generate-story-detail/{id}/edit', [GenerateStoryController::class, 'editChapter'])->name('generate.story.edit');
+Route::put('/generate-story-detail/{id}/update', [GenerateStoryController::class, 'updateChapter'])->name('generate.story.update');
