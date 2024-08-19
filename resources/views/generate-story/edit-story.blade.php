@@ -33,7 +33,6 @@
             </div>
           </div>
         @endforeach
-
         <button type="submit" class="btn btn-primary">Update Story</button>
       </form>
     </div>
