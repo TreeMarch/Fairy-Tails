@@ -6,6 +6,8 @@
   <div class="col-md">
     <small class="text-light fw-medium">CHAPTER</small>
     <div class="accordion mt-4" id="accordionExample">
+{{--      action goi den trang reading--}}
+      <form action="" method="post">
       @foreach($summarizes as $index => $chapter)
         <div class="card accordion-item @if($index == 0) active @endif">
           <h2 class="accordion-header" id="heading{{ $index }}">
@@ -21,30 +23,24 @@
               @if($chapter->thumbnail_url)
                 <img src="{{ $chapter->thumbnail_url }}" alt="{{ $chapter->title }} " class="img-fluid mb-3" />
               @endif
-
-              {{-- Nút Save  --}}
-              <div class="d-flex justify-content-between">
-                <form method="post" action="/story/save-page">
-                  @csrf
-                  <input type="hidden" name="chapter_id" value="{{ $chapter->id }}">
-                  <input type="hidden" name="story_id" value="{{ $chapter->story_id }}">
-                  <button type="submit" class="btn btn-primary">Save</button>
-                </form>
-
-                {{-- Nút Edit --}}
-                <form method="get" action="{{ route('generate.story.edit', ['id' => $chapter->story_id]) }}">
-                  @csrf
-                  <button type="submit" class="btn btn-warning">Edit</button>
-                </form>
-              </div>
             </div>
           </div>
         </div>
       @endforeach
+      </form>
     </div>
+    <div class="d-flex ">
+{{--         Nút Export --}}
+        <button type="submit" class="btn btn-primary">Xuất bản</button>
+      {{-- Nút Edit --}}
+      <form method="get" action="{{ route('generate.story.edit', ['id' => $chapter->story_id]) }}" class="btn btn-primary m-0">
+        @csrf
+        <button type="submit" class="btn btn-primary">Edit</button>
+      </form>
   </div>
 @endsection
 
 <script>
+
   // You can add any additional JavaScript here if needed.
 </script>

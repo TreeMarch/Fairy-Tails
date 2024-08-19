@@ -9,10 +9,7 @@
     <div class="col-xxl">
       <div class="card mb-6">
         <div class="card-body">
-          <form>
-            <img src="{{asset('assets/img/elements/13.jpg')}}" alt="">
 
-          </form>
         </div>
       </div>
     </div>
