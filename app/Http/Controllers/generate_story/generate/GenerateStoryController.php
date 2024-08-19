@@ -147,7 +147,7 @@ Trường "Chapter" chứa 2 trường thông tin bên trong: "Heading" chứa t
       $chapter->story_id = $this->random_story_id;
       $chapter->heading = $answer['Heading'];
       $chapter->description = $answer['Description'];
-      $chapter->thumbnail_url = "https://inkythuatso.com/uploads/thumbnails/800/2022/05/hinh-anh-gai-xinh-toc-ngan-15-tuoi-07-10-23-26.jpg";
+      $chapter->thumbnail_url = "https://res.cloudinary.com/dzxsq1qig/image/upload/v1724060252/img-example_kz7ttf.png";
       $chapter->created_at = Carbon::now();
       $chapter->updated_at = Carbon::now();
       $chapter->deleted_at = Carbon::now();
@@ -164,7 +164,7 @@ Trường "Chapter" chứa 2 trường thông tin bên trong: "Heading" chứa t
     $story->account_id = "aido123123";
     $story->title = $answers['Title'];
     $story->content = $answers['Content'];
-    $story->thumbnails_url = "https://inkythuatso.com/uploads/thumbnails/800/2022/05/hinh-anh-gai-xinh-toc-ngan-15-tuoi-07-10-23-26.jpg";
+    $story->thumbnails_url = "https://res.cloudinary.com/dzxsq1qig/image/upload/v1724060252/img-example_kz7ttf.png";
     $story->created_at = Carbon::now();
     $story->updated_at = Carbon::now();
     $story->deleted_at = Carbon::now();
