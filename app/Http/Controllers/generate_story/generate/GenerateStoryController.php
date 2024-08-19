@@ -205,32 +205,33 @@ Trường "Chapter" chứa 2 trường thông tin bên trong: "Heading" chứa t
     ]);
   }
 
+
   public function updateChapter(Request $request, $id){
     // Lấy story dựa trên ID
     $story = Story::where('story_id', $id)->firstOrFail();
 
+    // Lấy request
     $title = $request->input('title');
-    $content = $request->input('content');
+    $chapterHeadings = $request->input('headings');
+    $chapterDescriptions = $request->input('descriptions');
+    $chapterIds = $request->input('chapter_ids');
 
     // Cập nhật thông tin story
     $story->title = $title;
-    $story->content = $content;
     $story->updated_at = now();
     $story->save();
 
     // Cập nhật các chương (chapters)
-    $chapters = $request->input('headings');
-    $descriptions = $request->input('descriptions');
-    foreach ($chapters as $index => $heading) {
-      $chapter = Chapter::where('story_id', $id)->skip($index)->first();
+    foreach ($chapterIds as $index => $chapterId) {
+      $chapter = Chapter::find($chapterId);
       if ($chapter) {
-        $chapter->heading = $heading;
-        $chapter->description = $descriptions[$index];
+        $chapter->heading = $chapterHeadings[$index];
+        $chapter->description = $chapterDescriptions[$index];
+        $chapter->updated_at = now();
         $chapter->save();
       }
     }
 
     return redirect()->route('generate.story.chapter', ['id' => $id]);
   }
-
 }

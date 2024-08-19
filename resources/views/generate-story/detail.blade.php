@@ -31,7 +31,10 @@
     </div>
     <div class="d-flex ">
 {{--         Nút Export --}}
-        <button type="submit" class="btn btn-primary">Xuất bản</button>
+      <form method="get" action="{{ route('reading.story.detail', ['id' => $chapter->story_id]) }}" target="_blank" class="btn btn-primary m-0">
+        @csrf
+        <button type="submit" class="btn btn-primary" >xuất bản </button>
+      </form>
       {{-- Nút Edit --}}
       <form method="get" action="{{ route('generate.story.edit', ['id' => $chapter->story_id]) }}" class="btn btn-primary m-0">
         @csrf
