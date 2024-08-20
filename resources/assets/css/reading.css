@@ -3,34 +3,51 @@
 :root{
   --primary-color: #8D4852!important;
 }
-body{
-  font-family: "Merriweather", serif!important;
-  color: var(--primary-color)!important;
+*{
+  padding: 0;
+  margin: 0;
 }
 h1{
-  font-size: 3.5rem!important;
-  font-weight: 900;
+  font-size: 4.5rem!important;
+  font-weight: 900!important;
+  text-align: center;
+  width: 100%;
+  padding-top: 6rem;
+  margin-bottom: 4.5rem!important;
 }
-h5{
+h3{
   font-size:3rem!important;
-  font-weight: 900;
+  font-weight: 700!important;
+  margin-bottom: 2.25rem!important;
+  margin-top: 3rem!important;
+}
+p{
+  font-size:1.5rem!important;
+  font-weight: 500!important;
+  padding-bottom: 6.25rem!important;
+  margin-bottom: 0!important;
 }
 .background-book{
+  font-family: "Merriweather", serif!important;
+  color: var(--primary-color)!important;
   background-image: url("/public/assets/img/backgrounds/bg-reading.png");
   background-repeat: repeat-y;
   margin: 0;
-  background-size: cover;
+}
+.fix-width{
+  width: 1163px!important;
+  padding: 0!important;
 }
 .container-fluid{
   padding: 0 !important;
 }
 .background-resize{
   width: 1163px!important;
-  text-align: center;
 }
 .relative{
   position: relative;
-
+  width: 1163px!important;
+  height: 642px!important;
 }
 .frame-img{
   position: absolute;
