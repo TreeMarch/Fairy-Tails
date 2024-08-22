@@ -24,9 +24,8 @@ return new class extends Migration
             $table -> string("salt");
             $table -> boolean("is_admin");
             $table -> integer("status");
-            $table -> dateTime("created_at") -> useCurrentOnUpdate();
-            $table -> dateTime("updated_at")-> useCurrentOnUpdate();
-            $table -> dateTime("deleted_at") -> useCurrentOnUpdate();
+            $table -> timestamps();
+            $table -> dateTime("deleted_at") ->nullable() ;
             $table -> string("created_by");
             $table -> string("updated_by");
             $table -> string("deleted_by")->nullable();

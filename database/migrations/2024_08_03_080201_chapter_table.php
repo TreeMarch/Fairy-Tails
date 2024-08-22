@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('chapters', function (Blueprint $table) {
             $table->bigIncrements('id')->autoIncrement();
             $table -> string("story_id");
+            $table -> string("chapter_id");
             $table-> string('heading');
             $table-> longText("description");
             $table-> string("thumbnail_url");
