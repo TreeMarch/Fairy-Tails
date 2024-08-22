@@ -4,6 +4,11 @@
 @section('title', ' Horizontal Layouts - Forms')
 
 @section('content')
+  <style>
+    textarea {
+      resize: none;
+    }
+  </style>
   <div class="row">
     <div class="col-xxl">
       <div class="card mb-6">
@@ -15,51 +20,51 @@
               <div class="col-md">
                 <h3>Tên truyện</h3>
                 <div>
-                  <textarea name="background" class="form-control" id="custom-background" rows="3" placeholder="ví dụ: trong một khu rừng huyền bí có một cái cây cổ thụ to lớn..."></textarea>
+                  <textarea name="title-story" class="form-control" id="custom-background" rows="3" placeholder="ví dụ: Quang và bí ẩn dưới lớp băng..."></textarea>
                 </div>
               </div>
               <!-- description -->
               <div class="col-md">
                 <h3>Mô tả</h3>
                 <div>
-                  <textarea name="background" class="form-control" id="custom-background" rows="3" placeholder="ví dụ: trong một khu rừng huyền bí có một cái cây cổ thụ to lớn..."></textarea>
+                  <textarea name="description" class="form-control" id="custom-background" rows="3" placeholder="ví dụ: Quang và đồng đội là những người bạn trẻ có khao khát khám phá, cậu ấy cùng những người bạn đã phát hiện có bí ẩn gí đó dưới lớp băng ở bắc cực nên đã quyết định lên đường khám phá,..."></textarea>
                 </div>
               </div>
             </div>
 
-            <div class="row gy-6 mt-6">
+            <div class="row gy-6">
               <!--Lessons-->
               <div class="col-md">
                 <div class="col">
-                  <h3>Lessons</h3>
+                  <h3>Bài học</h3>
                   <div class="col-md row d-flex">
                     <div class="col-md">
                       <div class="form-check mt-3">
-                        <input name="lesson" class="form-check-input" type="checkbox" value="Lòng dũng cảm" id="brave" />
+                        <input name="lessons[]" class="form-check-input" type="checkbox" value="Lòng dũng cảm" id="brave" />
                         <label class="form-check-label" for="brave">
                           Lòng dũng cảm
                         </label>
                       </div>
                       <div class="form-check">
-                        <input name="lesson" class="form-check-input" type="checkbox" value="Tình bạn" id="friendship"  />
+                        <input name="lessons[]" class="form-check-input" type="checkbox" value="Tình bạn" id="friendship"  />
                         <label class="form-check-label" for="friendship">
                           Tình bạn
                         </label>
                       </div>
                       <div class="form-check">
-                        <input name="lesson" class="form-check-input" type="checkbox" value="Tình cảm gia đình" id="family-love"  />
+                        <input name="lessons[]" class="form-check-input" type="checkbox" value="Tình cảm gia đình" id="family-love"  />
                         <label class="form-check-label" for="family-love">
                           Tình cảm gia đình
                         </label>
                       </div>
                       <div class="form-check">
-                        <input name="lesson" class="form-check-input" type="checkbox" value="Tình yêu động vật" id="love-for-animals"  />
+                        <input name="lessons[]" class="form-check-input" type="checkbox" value="Tình yêu động vật" id="love-for-animals"  />
                         <label class="form-check-label" for="love-for-animals">
                           Tình yêu động vật
                         </label>
                       </div>
                       <div class="form-check">
-                        <input name="lesson" class="form-check-input" type="checkbox" value="Khiêm tốn" id="humble"  />
+                        <input name="lessons[]" class="form-check-input" type="checkbox" value="Khiêm tốn" id="humble"  />
                         <label class="form-check-label" for="humble">
                           Khiêm tốn
                         </label>
@@ -67,42 +72,46 @@
                     </div>
                     <div class="col-md">
                       <div class="form-check mt-3">
-                        <input name="lesson" class="form-check-input" type="checkbox" value="Tham lam" id="greed" />
+                        <input name="lessons[]" class="form-check-input" type="checkbox" value="Tham lam" id="greed" />
                         <label class="form-check-label" for="greed">
                           Tham lam
                         </label>
                       </div>
                       <div class="form-check">
-                        <input name="lesson" class="form-check-input" type="checkbox" value="Ích kỷ" id="selfish"  />
+                        <input name="lessons[]" class="form-check-input" type="checkbox" value="Ích kỷ" id="selfish"  />
                         <label class="form-check-label" for="selfish">
                           Ích kỷ
                         </label>
                       </div>
                       <div class="form-check">
-                        <input name="lesson" class="form-check-input" type="checkbox" value="Ghen tỵ" id="envy"  />
+                        <input name="lessons[]" class="form-check-input" type="checkbox" value="Ghen tỵ" id="envy"  />
                         <label class="form-check-label" for="envy">
                           Ghen tỵ
                         </label>
                       </div>
                       <div class="form-check">
-                        <input name="lesson" class="form-check-input" type="checkbox" value="Tức giận" id="angry"  />
+                        <input name="lessons[]" class="form-check-input" type="checkbox" value="Tức giận" id="angry"  />
                         <label class="form-check-label" for="angry">
                           Tức giận
                         </label>
                       </div>
                       <div class="form-check">
-                        <input name="lesson" class="form-check-input" type="checkbox" value="Tham ăn" id="Voracious"  />
+                        <input name="lessons[]" class="form-check-input" type="checkbox" value="Tham ăn" id="Voracious"  />
                         <label class="form-check-label" for="Voracious">
                           Tham ăn
                         </label>
                       </div>
+                    </div>
+                    <h6 class="mt-4"><i>Mô tả thêm về bài họ bạn muốn truyền tải</i></h6>
+                    <div>
+                      <textarea name="lessons-2" class="form-control" id="custom-background" rows="3" placeholder="ví dụ: Bài học truyền tải giá trị về tình cảm gia đình giữa gấu và thỏ..."></textarea>
                     </div>
                   </div>
                 </div>
               </div>
               <!--Background-->
               <div class="col-md">
-                <h3>Background</h3>
+                <h3>Bối cảnh</h3>
                 <div class="col-md row d-flex">
                   <div class="col-md">
                     <div class="form-check mt-3">
@@ -171,16 +180,15 @@
                 </div>
                 <h6 class="mt-4"><i>Mô tả thêm về bối cảnh câu chuyện của bạn</i></h6>
                 <div>
-                  <textarea name="background" class="form-control" id="custom-background" rows="3" placeholder="ví dụ: trong một khu rừng huyền bí có một cái cây cổ thụ to lớn..."></textarea>
+                  <textarea name="background-2" class="form-control" id="custom-background" rows="3" placeholder="ví dụ: trong một khu rừng huyền bí có một cái cây cổ thụ to lớn..."></textarea>
                 </div>
               </div>
             </div>
 
-            <!-- Description -->
+            <!--Character-->
             <div class="col-6">
-              <!--Character-->
               <div class="col-md mt-6">
-                <h3>Character</h3>
+                <h3>Nhân vật</h3>
                 <div class="col-md row d-flex">
                   <div class="col-md">
                     <div class="form-check mt-3">
@@ -250,7 +258,7 @@
                 </div>
                 <h6 class="mt-4"><i>Tự sáng tạo nhân vật của bạn </i></h6>
                 <div>
-                  <textarea name="character" class="form-control" id="custom-character" rows="3" placeholder="Enter your character you want..."></textarea>
+                  <textarea name="character-2" class="form-control" id="custom-character" rows="3" placeholder="Ví dụ: Trình và Trung là 2 người bạn rất thân thiết, họ làm gì cũng có nhau..."></textarea>
                 </div>
               </div>
             </div>
