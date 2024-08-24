@@ -17,7 +17,7 @@ return new class extends Migration
         $table->string("chapter_id");//để truy vấn dữ liệu từ bảng chapter sang dialogue xem là cái dialog này thuộc chapter nào, luu ý mỗi dialogue là một bản ghi
         $table -> dateTime("created_at") -> useCurrentOnUpdate();
         $table -> dateTime("updated_at")-> useCurrentOnUpdate();
-        $table -> dateTime("deleted_at") -> useCurrentOnUpdate();
+        $table -> dateTime("deleted_at")->nullable() ;
         $table -> string("created_by");
         $table -> string("updated_by");
         $table -> string("deleted_by")->nullable();
