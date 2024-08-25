@@ -49,8 +49,8 @@
           "target": "_blank"
         },
         {
-          "url": "/summarize",
-          "name": "Created Story",
+          "url": "/share-story",
+          "name": "Share Story",
           "slug": "laravel-example-user-management",
           "target": "_blank"
         }

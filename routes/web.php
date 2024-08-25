@@ -57,8 +57,10 @@ use App\Http\Controllers\user_management\show_user\ShowUserController;
 use App\Http\Controllers\generate_story\generate\GenerateStoryControllerUi;
 use App\Http\Controllers\generate_story\generate\GenerateStoryController;
 
+
 // Main Page Route
 Route::get('/', [Analytics::class, 'index'])->name('dashboard-analytics');
+Route::get('/share-story',[MiscUnderMaintenance::class, 'index'])->name('share-story');
 
 
 //=====================================================================================================================
@@ -113,3 +115,4 @@ Route::put('/generate-story-detail/{id}/update', [GenerateStoryController::class
 
 // Route để hiện toàn bộ câu chuyện
 Route::get('/reading-story-detail/{id}', [ReadingController::class, 'showAllReading'])->name('reading.story.detail');
+

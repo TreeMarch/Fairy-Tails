@@ -43,11 +43,11 @@
               <td>{{ $user->email }}</td>
               <td>
                 @if($user->status == -1 )
-                  <span style="color:#F44336" class="badge badge-danger">Banned</span>
+                  <span  class="badge bg-label-danger me-1">Banned</span>
                 @elseif($user->status == 0)
-                  <span  style="color:#424242" class="badge badge-secondary">Pending</span>
+                  <span  class="badge bg-label-warning me-1">Pending</span>
                 @elseif($user->status == 1)
-                  <span  style="color:#2CFA1F" class="badge badge-success">Active</span>
+                  <span  class="badge bg-label-success me-1">Active</span>
                 @endif
               </td>
               <td>

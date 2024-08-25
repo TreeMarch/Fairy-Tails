@@ -35,7 +35,7 @@ class ShowUserController extends Controller
             $query->where('status', 'like', '%' . $key . '%');
           }
         })
-        ->paginate(10);
+        ->paginate(4);
     } else {
       $users = ShowAll::ShowAll();
     }
