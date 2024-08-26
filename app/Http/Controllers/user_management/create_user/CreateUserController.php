@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\user_management\create_user;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\storeUserRequest;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
@@ -10,7 +11,8 @@ use Illuminate\Support\Str;
 
 class CreateUserController extends Controller
 {
-  public function index(){
+  public function index(StoreUserRequest $request){
+    $validated = $request->validated();
     $dateNow = Carbon::now() -> toDateString();
 
     $user = new User();
@@ -34,7 +36,7 @@ class CreateUserController extends Controller
     $user ->updated_by = $dateNow;
     $user ->deleted_by = $dateNow;
 
-    $user -> save();
+    $user -> save($validated);
     return redirect('/tables/basic');
 
   }
