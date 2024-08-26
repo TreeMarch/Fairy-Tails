@@ -265,7 +265,7 @@
 
             <!-- Submit Button -->
             <button type="submit" class="btn btn-primary mt-6">
-              <span class="tf-icons bx bx-send bx-18px me-2"></span>Submit
+              <span class="tf-icons bx bx-send bx-18px me-2"></span>Tạo truyện
             </button>
           </form>
         </div>
