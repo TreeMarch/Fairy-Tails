@@ -27,7 +27,7 @@ class storeUserRequest extends FormRequest
             'first_name' => 'required|min:3|max:40',
             'last_name' => 'required|min:3|max:40',
             'email' => 'required|email|unique:users,email',
-            'phone_number'=> 'required||unique:users,phone_number',
+            'phone_number'=> 'required||unique:users,phone_number|numeric',
             'favourite' => 'nullable',
             'birth' => 'required',
         ];
@@ -52,7 +52,8 @@ class storeUserRequest extends FormRequest
         "email.unique" => "Email address already exists.",
         "phone_number.required" => "Please enter your phone number.",
         "birth.required" => "Please chose your birthday.",
-        "phone_number.unique" => "Phone number already exists."
+        "phone_number.unique" => "Phone number already exists.",
+        "phone_number.numeric" => "Phone number must be a number."
       ];
     }
 }

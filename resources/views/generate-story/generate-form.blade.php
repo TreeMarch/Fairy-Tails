@@ -17,17 +17,23 @@
             @csrf
             <div class="row gy-6">
               <!-- Title -->
-              <div class="col-md">
+              <div class="col-md @error('title-story') has-error @enderror">
                 <h3>Tên truyện</h3>
                 <div>
                   <textarea name="title-story" class="form-control" id="custom-background" rows="3" placeholder="ví dụ: Quang và bí ẩn dưới lớp băng..."></textarea>
+                  @error('title-story')
+                  <small class="form-text text-danger">{{ $message }}</small>
+                  @enderror
                 </div>
               </div>
               <!-- description -->
-              <div class="col-md">
+              <div class="col-md @error('description') has-error @enderror">
                 <h3>Mô tả</h3>
                 <div>
                   <textarea name="description" class="form-control" id="custom-background" rows="3" placeholder="ví dụ: Quang và đồng đội là những người bạn trẻ có khao khát khám phá, cậu ấy cùng những người bạn đã phát hiện có bí ẩn gí đó dưới lớp băng ở bắc cực nên đã quyết định lên đường khám phá,..."></textarea>
+                  @error('description')
+                  <small class="form-text text-danger">{{ $message }}</small>
+                  @enderror
                 </div>
               </div>
             </div>
@@ -179,8 +185,11 @@
                   </div>
                 </div>
                 <h6 class="mt-4"><i>Mô tả thêm về bối cảnh câu chuyện của bạn</i></h6>
-                <div>
+                <div class="@error('background-2') has-error @enderror">
                   <textarea name="background-2" class="form-control" id="custom-background" rows="3" placeholder="ví dụ: trong một khu rừng huyền bí có một cái cây cổ thụ to lớn..."></textarea>
+                  @error('background-2')
+                  <small class="form-text text-danger">{{ $message }}</small>
+                  @enderror
                 </div>
               </div>
             </div>
@@ -257,8 +266,11 @@
                   </div>
                 </div>
                 <h6 class="mt-4"><i>Tự sáng tạo nhân vật của bạn </i></h6>
-                <div>
+                <div class="@error('character-2') has-error @enderror">
                   <textarea name="character-2" class="form-control" id="custom-character" rows="3" placeholder="Ví dụ: Trình và Trung là 2 người bạn rất thân thiết, họ làm gì cũng có nhau..."></textarea>
+                  @error('character-2')
+                  <small class="form-text text-danger">{{ $message }}</small>
+                  @enderror
                 </div>
               </div>
             </div>
