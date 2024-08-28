@@ -6,6 +6,7 @@
   <!-- Basic Bootstrap Table -->
   <div class="card">
     <div class="card-header">
+      @include('alert-message')
       <div style="display: flex;justify-content: space-between;padding-bottom: 20px;align-items: center">
         <h5>Toàn bộ người dùng</h5>
         <form action="" method="get">

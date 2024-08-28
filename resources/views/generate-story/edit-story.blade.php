@@ -3,6 +3,7 @@
 @section('title', 'Edit Story')
 
 @section('content')
+  @include('alert-message')
   <h5 class="mb-4">Edit Story</h5>
 
   <div class="row">
