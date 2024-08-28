@@ -37,7 +37,7 @@ class CreateUserController extends Controller
     $user ->deleted_by = $dateNow;
 
     $user -> save($validated);
-    return redirect('/tables/basic');
+    return redirect('/tables/basic')->with('success','Thêm người dùng thành công ');
 
   }
 }

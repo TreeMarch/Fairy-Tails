@@ -20,6 +20,6 @@ class EditUserController extends Controller
     $user = User::findOrFail($id);
     $user->update($request->all());
 
-    return redirect('/tables/basic');
+    return redirect('/tables/basic')->with('success', 'Chỉnh sửa người dùng thành công');
   }
 }

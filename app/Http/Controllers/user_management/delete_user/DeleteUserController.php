@@ -13,6 +13,6 @@ class DeleteUserController extends Controller
     $user = User::findOrFail($id);
     $user->delete();
 
-    return redirect('/tables/basic');
+    return redirect('/tables/basic')->with('success', 'Xoá người dùng thành công ');
   }
 }

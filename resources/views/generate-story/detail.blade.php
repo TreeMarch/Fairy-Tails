@@ -4,6 +4,7 @@
 
 @section('content')
   <div class="col-md">
+    @include('alert-message')
     <small class="text-light fw-medium">CHAPTER</small>
     <div class="accordion mt-4" id="accordionExample">
       @if($summarizes->isEmpty())

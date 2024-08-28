@@ -8,6 +8,6 @@ class EditStoryControllerUi extends Controller
 {
   public function index()
   {
-    return view("generate-story.edit-story");
+    return view("generate-story.edit-story")->with('success', 'Chỉnh sửa truyện thành công ');
   }
 }
