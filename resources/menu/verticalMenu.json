@@ -1,56 +1,56 @@
 {
   "menu": [
     {
-      "name": "User Management",
-      "icon": "menu-icon tf-icons bx bxl-php",
+      "name": "Quản lý người dùng",
+      "icon": "menu-icon tf-icon bx-18px fa-solid fa-user-gear",
       "slug": "laravel-example",
       "submenu": [
         {
           "url": "/tables/basic",
-          "name": "Show all user",
+          "name": "Hiển thị toàn bộ người dùng ",
           "slug": "laravel-example-user-management",
           "target": "_blank"
         },
         {
           "url": "/user-management/create-user",
-          "name": "Add User",
-          "slug": "laravel-example-user-management",
-          "target": "_blank"
-        },
-        {
-          "url": "/story-management/summarize-story-ui",
-          "name": "Summarize",
-          "slug": "laravel-example-user-management",
-          "target": "_blank"
-        },
-        {
-          "name": "Reading Story",
-          "url": "/test2",
+          "name": "Thêm người dùng",
           "slug": "laravel-example-user-management",
           "target": "_blank"
         }
       ]
     },
     {
-      "name": "Story Management",
-      "icon": "menu-icon tf-icons bx bxl-php",
+      "name": "Quản lý truyện",
+      "icon": "menu-icon tf-icons bx-18px fa-solid fa-book",
       "slug": "laravel-example",
       "submenu": [
         {
           "url": "/story-management/generate-story-ui",
-          "name": "Generate Story",
+          "name": "Tạo truyện",
           "slug": "laravel-example-user-management",
           "target": "_blank"
         },
         {
           "url": "/user-management/create-user",
-          "name": "Edit Story",
+          "name": "Chỉnh sửa truyện",
           "slug": "laravel-example-user-management",
           "target": "_blank"
         },
         {
-          "url": "/summarize",
-          "name": "Created Story",
+          "url": "/story-management/summarize-story-ui",
+          "name": "Truyện ngắn",
+          "slug": "laravel-example-user-management",
+          "target": "_blank"
+        },
+        {
+          "url": "/share-story",
+          "name": "Chia sẻ truyện",
+          "slug": "laravel-example-user-management",
+          "target": "_blank"
+        },
+        {
+          "name": "Đọc truyện",
+          "url": "/test2",
           "slug": "laravel-example-user-management",
           "target": "_blank"
         }

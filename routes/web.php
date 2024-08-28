@@ -67,11 +67,10 @@ Route::get('/', [Analytics::class, 'index'])->name('dashboard-analytics');
 //Route::get('/', function () {
 //  return view('welcome');
 //});
- // login
- Route::get('/auth/login-basic', [LoginBasic::class, 'index']);
- Route::post('/auth/login-basic/store', [LoginBasic::class, 'login'])->name('auth-login-basic');
- Route::get('/auth/register-basic', [RegisterBasic::class, 'index'])->name('auth-register-basic');
- Route::get('/auth/forgot-password-basic', [ForgotPasswordBasic::class, 'index'])->name('auth-reset-password-basic');
+
+// Main Page Route
+Route::get('/share-story',[MiscUnderMaintenance::class, 'index'])->name('share-story');
+
 
 //=====================================================================================================================
 
@@ -123,11 +122,3 @@ Route::put('/generate-story-detail/{id}/update', [GenerateStoryController::class
 // Route để hiện toàn bộ câu chuyện
 Route::get('/reading-story-detail/{id}', [ReadingController::class, 'showAllReading'])->name('reading.story.detail');
 
-//Route::get('/guest', 'GuestController@hello');
-//Route::get('/user', 'UserController@hello');
-//Route::get('/user-bye', 'UserController@goodbye');
-//Route::get('/admin', 'AdminController@hello');
-//
-//Auth::routes();
-//
-//Route::get('/home', 'HomeController@index')->name('home');

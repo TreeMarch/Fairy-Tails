@@ -3,6 +3,7 @@ namespace App\Http\Controllers\generate_story\generate;
 
 use AllowDynamicProperties;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\GenerateStoryRequest;
 use App\Models\Dialogue;
 use App\Models\Summarize;
 use App\Models\Chapter;
@@ -16,7 +17,7 @@ use Illuminate\Support\Carbon;
 #[AllowDynamicProperties] class GenerateStoryController extends Controller
 {
   protected $random_story_id;
-  public function __construct(Request $request){
+  public function __construct(GenerateStoryRequest $request){
     // Tạo một story_id ngẫu nhiên
     $this->random_story_id = "100" . Str::random(4);
     $this->random_chapter_id = "001" . Str::random(6);

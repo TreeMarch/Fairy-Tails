@@ -31,7 +31,7 @@ return new class extends Migration
             $table -> string("email")->unique();
             $table -> string("phone_number");
             $table ->string('url_avatar')->nullable();
-            $table -> string("favourite");
+            $table -> string("favourite")->nullable();
             $table -> date("birth");
             $table -> string("salt");
             $table -> bigInteger("current_coin");

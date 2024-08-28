@@ -13,9 +13,9 @@ class ShowUserController extends Controller
   {
     $key = request('key');
     $statusMapping = [
-      'pending' => 0,
-      'active' => 1,
-      'banned' => -1,
+      'Cảnh báo' => 0,
+      'Hoạt động' => 1,
+      'Đã chặn' => -1,
     ];
 
     if ($key) {
@@ -35,7 +35,7 @@ class ShowUserController extends Controller
             $query->where('status', 'like', '%' . $key . '%');
           }
         })
-        ->paginate(10);
+        ->paginate(4);
     } else {
       $users = ShowAll::ShowAll();
     }

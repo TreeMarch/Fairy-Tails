@@ -24,10 +24,26 @@
 
   <!-- Include Scripts for customizer, helper, analytics, config -->
   @include('layouts/sections/scriptsIncludes')
+  <style>
+    .loader{
+      display: none;
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      padding-top: 19%;
+      background: #333;
+      padding-left: 48%;
+      margin: 0 auto;
+      z-index: 99999;
+    }
+  </style>
 </head>
 
 <body>
 
+  <div class="loader" >
+    <img src="{{asset('assets/img/loading/oval.svg')}}">
+  </div>
   <!-- Layout Content -->
   @yield('layoutContent')
   <!--/ Layout Content -->
@@ -37,6 +53,13 @@
   <!-- Include Scripts -->
   @include('layouts/sections/scripts')
 
+{{--  <script>--}}
+{{--    $(function(){--}}
+{{--      setTimeout(()=>{--}}
+{{--        $(".loader").fadeOut(1000);--}}
+{{--      },3000)--}}
+{{--    })--}}
+{{--  </script>--}}
 
 </body>
 
