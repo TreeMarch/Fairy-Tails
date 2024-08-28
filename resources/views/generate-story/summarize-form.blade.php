@@ -6,18 +6,21 @@
 @section('title', 'Horizontal Layouts - Forms')
 
 @section('content')
+  <style>
+
+  </style>
   <!-- Basic Layout & Basic with Icons -->
   <div class="row">
     <!-- Basic Layout -->
     <div class="col-xxl">
       <div class="card mb-6">
         <div class="card-body">
-          <div class="d-flex row">
+          <div class="d-flex container row">
             @if(isset($summarizes) && count($summarizes) > 0)
               @foreach($summarizes as $index => $chapter)
-                <form method="post" action="{{ route('generate.story.summarize-form') }}" class="d-flex row">
+                <form method="post" action="{{ route('generate.story.summarize-form') }}" class="col">
                   @csrf
-                  <div class="col-md-6 col-lg-4">
+                  <div class="">
                     <div class="card h-100">
                       <img class="card-img-top" src="{{ asset('assets/img/elements/2.jpg') }}" alt="Card image cap" />
                       <div class="card-body">

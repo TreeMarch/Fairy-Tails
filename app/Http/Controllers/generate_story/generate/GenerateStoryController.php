@@ -13,11 +13,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
+use App\Http\Requests\GenerateStoryRequest as ValidateRequest;
 
 #[AllowDynamicProperties] class GenerateStoryController extends Controller
 {
   protected $random_story_id;
-  public function __construct(GenerateStoryRequest $request){
+  public function __construct(Request $request){
+
     // Tạo một story_id ngẫu nhiên
     $this->random_story_id = "100" . Str::random(4);
     $this->random_chapter_id = "001" . Str::random(6);
@@ -42,11 +44,11 @@ use Illuminate\Support\Carbon;
   public  function index()
   {
     // Tạo message dựa trên input người dùng
-    $message = 'Viết cho tôi 3 câu truyện tóm tắt từ những gợi ý dưới đây tên truyện có gợi ý là "' . $this->title . '", Mô tả thêm về câu truyện có gợi ý là: "' . $this->description . '" nội dung câu chuyện xoay quanh nhân vật có gợi ý là'.$this->character.' (mô tả thêm: '.$this->character_des.' ) , bối cảnh câu truyện có gợi ý là trong  ' . $this->background ."(mô tả thêm:" . $this->background_des . "), Bài học rút ra sau câu truyện là:" . $this->lessons_string ."(mô tả thêm:" . $this->lessons_des ."). Chữ cái đầu luôn viết hoa ".'.
+    $message = 'Viết cho tôi 3 câu truyện tóm tắt từ những gợi ý dưới đây tên truyện có gợi ý là "' . $this->title . '", Mô tả thêm về câu truyện có gợi ý là: "' . $this->description . '" nội dung câu chuyện xoay quanh nhân vật có gợi ý là'.$this->character.' (mô tả thêm: '.$this->character_des.' ) , bối cảnh câu truyện có gợi ý là trong  ' . $this->background ."(mô tả thêm:" . $this->background_des . "), Bài học rút ra sau câu truyện là:" . $this->lessons_string ."(mô tả thêm:" . $this->lessons_des ."). ".'.
      Trả về định dạng json, có các trường thông tin như sau:
-     Trường "Title" chứa tên câu truyện.
-     Trường "Description" chứa mô tả câu truyện.
-     Trường "Thumbnail_url" chứa thông tin về url ảnh.';
+     Trường "Title" chứa tên câu truyện. (Chữ cái đầu tên trường luôn viết hoa)
+     Trường "Description" chứa mô tả câu truyện.(Chữ cái đầu tên trường luôn viết hoa)
+     Trường "Thumbnail_url" chứa thông tin về url ảnh.(Chữ cái đầu tên trường luôn viết hoa)';
 
     // Gửi request đến OpenAI API
     $client = new Client();
@@ -56,7 +58,7 @@ use Illuminate\Support\Carbon;
         'Content-Type' => 'application/json',
       ],
       'json' => [
-        'model' => 'gpt-4',
+        'model' => 'gpt-3.5-turbo',
         'messages' => [
           [
             'role' => 'user',
@@ -152,7 +154,7 @@ use Illuminate\Support\Carbon;
         'Content-Type' => 'application/json',
       ],
       'json' => [
-        'model' => 'gpt-4',
+        'model' => 'gpt-3.5-turbo',
         'messages' => [
           [
             'role' => 'user',
