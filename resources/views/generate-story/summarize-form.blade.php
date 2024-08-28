@@ -7,29 +7,29 @@
 
 @section('content')
   <style>
-
+    .edit{
+      padding: 0!important;
+    }
   </style>
   <!-- Basic Layout & Basic with Icons -->
   <div class="row">
     <!-- Basic Layout -->
     <div class="col-xxl">
-      <div class="card mb-6">
-        <div class="card-body">
-          <div class="d-flex container row">
+      <div class="card mb-6 p-3 pt-6">
+        <div class="card-body p-0">
+          <div class="d-flex container edit">
             @if(isset($summarizes) && count($summarizes) > 0)
               @foreach($summarizes as $index => $chapter)
-                <form method="post" action="{{ route('generate.story.summarize-form') }}" class="col">
+                <form method="post" action="{{ route('generate.story.summarize-form') }}" class="col-lg col-md col-sm ps-3 pe-3">
                   @csrf
-                  <div class="">
-                    <div class="card h-100">
-                      <img class="card-img-top" src="{{ asset('assets/img/elements/2.jpg') }}" alt="Card image cap" />
-                      <div class="card-body">
-                        <h5 class="card-title">{{ $chapter->title }}</h5>
-                        <input type="hidden" name="summarize_title" value="{{ $chapter->title }}">
-                        <p class="card-text">{{ $chapter->description }}</p>
-                        <input type="hidden" name="summarize_description" value="{{ $chapter->description }}">
-                        <input type="submit" class="btn btn-outline-primary" value="Choice this story"/>
-                      </div>
+                  <div class="card h-100 ">
+                    <img class="card-img-top" src="{{ asset('assets/img/elements/21.jpg') }}" alt="Card image cap" />
+                    <div class="card-body">
+                      <h5 class="card-title">{{ $chapter->title }}</h5>
+                      <input type="hidden" name="summarize_title" value="{{ $chapter->title }}">
+                      <p class="card-text">{{ $chapter->description }}</p>
+                      <input type="hidden" name="summarize_description" value="{{ $chapter->description }}">
+                      <input type="submit" class="btn btn-outline-primary" value="Choice this story"/>
                     </div>
                   </div>
                 </form>
