@@ -6,6 +6,7 @@ use App\Http\Controllers\user_management\create_user\CreateUserControllerUi;
 use App\Http\Controllers\user_management\delete_user\DeleteUserController;
 use App\Http\Controllers\user_management\detail_user\DetailUserController;
 use App\Http\Controllers\user_management\edit_user\EditUserController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\dashboard\Analytics;
 use App\Http\Controllers\layouts\WithoutMenu;
@@ -57,16 +58,22 @@ use App\Http\Controllers\user_management\show_user\ShowUserController;
 use App\Http\Controllers\generate_story\generate\GenerateStoryControllerUi;
 use App\Http\Controllers\generate_story\generate\GenerateStoryController;
 
-// Main Page Route
-Route::get('/', [Analytics::class, 'index'])->name('dashboard-analytics');
-
-
-//=====================================================================================================================
-//use App\Http\Controllers\generate_story\generate\GenerateStoryControllerUi as GenerateStoryControllerUi;
-//use App\Http\Controllers\generate_story\generate\GenerateStoryController as  GenerateStoryController;
 use App\Http\Controllers\generate_story\summarize\SummarizeControllerUi as SummarizeControllerUi;
 use App\Http\Controllers\generate_story\summarize\SummarizeController as  SummarizeController;
 
+
+// Main Page Route
+Route::get('/', [Analytics::class, 'index'])->name('dashboard-analytics');
+//Route::get('/', function () {
+//  return view('welcome');
+//});
+ // login
+ Route::get('/auth/login-basic', [LoginBasic::class, 'index']);
+ Route::post('/auth/login-basic/store', [LoginBasic::class, 'login'])->name('auth-login-basic');
+ Route::get('/auth/register-basic', [RegisterBasic::class, 'index'])->name('auth-register-basic');
+ Route::get('/auth/forgot-password-basic', [ForgotPasswordBasic::class, 'index'])->name('auth-reset-password-basic');
+
+//=====================================================================================================================
 
 
 Route::get('/tables/basic',[ShowUserController::class,'index'])->name('tables.basic');
@@ -100,6 +107,8 @@ Route::post('/generate-story', [GenerateStoryController::class, 'index'])->name(
 
 // Route để hiển thị chi tiết câu chuyện sau khi được generate
 Route::get('/generate-story-detail/{id}', [GenerateStoryController::class, 'generateDetail'])->name('generate.story.detail');
+Route::post('/generate-story-reset', [GenerateStoryController::class, 'resetStory'])->name('generate.story.reset');
+
 
 // Route để gọi phương thức sendPromptDetail
 Route::post('/generate-story-detail', [GenerateStoryController::class, 'sendPromptDetail'])->name('generate.story.summarize-form');
@@ -113,3 +122,12 @@ Route::put('/generate-story-detail/{id}/update', [GenerateStoryController::class
 
 // Route để hiện toàn bộ câu chuyện
 Route::get('/reading-story-detail/{id}', [ReadingController::class, 'showAllReading'])->name('reading.story.detail');
+
+//Route::get('/guest', 'GuestController@hello');
+//Route::get('/user', 'UserController@hello');
+//Route::get('/user-bye', 'UserController@goodbye');
+//Route::get('/admin', 'AdminController@hello');
+//
+//Auth::routes();
+//
+//Route::get('/home', 'HomeController@index')->name('home');

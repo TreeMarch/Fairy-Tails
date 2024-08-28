@@ -273,3 +273,19 @@
     </div>
   </div>
 @endsection
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const form = document.querySelector('form');
+    if (form) {
+      form.addEventListener('submit', function () {
+        const loading = document.getElementById('loading');
+        if (loading) {
+          loading.style.display = 'block';
+        }
+      });
+    }
+  });
+</script>
+
+
