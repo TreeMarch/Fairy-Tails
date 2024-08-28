@@ -121,6 +121,74 @@ use Illuminate\Support\Carbon;
       'thumbnail_url' => $summarize->thumbnail_url,
     ]);
   }
+  public function resetStory(Request $request)
+  {
+    // Tạo một story_id
+    $story_id = "100" . Str::random(4);
+
+    // Lấy lại dữ liệu đã nhập từ request
+    $title = $request->input('title-story');
+    $description = $request->input('description');
+    $thumbnail = $request->input('thumbnail');
+    $lessons = $request->input('lessons', []);
+    $lessons_des = $request->input('lessons-2');
+    $background = $request->input('background');
+    $background_des = $request->input('background-2');
+    $character = $request->input('character');
+    $character_des = $request->input('character-2');
+
+    // Tạo message
+    $message = 'Viết cho tôi 3 câu truyện tóm tắt từ những gợi ý dưới đây tên truyện có gợi ý là "' . $title . '", Mô tả thêm về câu truyện có gợi ý là: "' . $description . '" nội dung câu chuyện xoay quanh nhân vật có gợi ý là' . $character . ' (mô tả thêm: ' . $character_des . ' ), bối cảnh câu truyện có gợi ý là trong ' . $background . "(mô tả thêm:" . $background_des . "), Bài học rút ra sau câu truyện là:" . implode(', ', $lessons) . "(mô tả thêm:" . $lessons_des . "). Chữ cái đầu luôn viết hoa ".'.
+        Trả về định dạng json, có các trường thông tin như sau:
+        Trường "Title" chứa tên câu truyện.
+        Trường "Description" chứa mô tả câu truyện.
+        Trường "Thumbnail_url" chứa thông tin về url ảnh.';
+
+
+    $client = new Client();
+    $response = $client->post('https://api.openai.com/v1/chat/completions', [
+      'headers' => [
+        'Authorization' => 'Bearer ' . env('OPENAI_API_KEY'),
+        'Content-Type' => 'application/json',
+      ],
+      'json' => [
+        'model' => 'gpt-4',
+        'messages' => [
+          [
+            'role' => 'user',
+            'content' => $message,
+          ],
+        ],
+      ],
+    ]);
+
+    // Giả sử response từ OpenAI là dạng JSON với các trường Title, Description, thumbnail_url
+    $responseData = json_decode($response->getBody(), true);
+    $answers = json_decode($responseData['choices'][0]['message']['content'], true);
+
+    // Tạo mảng $summarizes để chứa các câu chuyện mới và lưu vào database
+    $summarizes = [];
+    foreach ($answers as $answer) {
+      $summarize = new Summarize();
+      $summarize->story_id = $story_id;
+      $summarize->title = $answer['Title'];
+      $summarize->description = $answer['Description'];
+      $summarize->status = 1;
+      $summarize->thumbnail_url = $answer['Thumbnail_url'];
+      $summarize->created_at = Carbon::now();
+      $summarize->updated_at = Carbon::now();
+      $summarize->created_by = "user";
+      $summarize->updated_by = "user";
+      $summarize->save();
+
+      // Lưu vào mảng để truyền sang view
+      $summarizes[] = $summarize;
+    }
+
+    // Truyền các biến cần thiết sang view summarize-form.blade.php
+    return view('generate-story.summarize-form', compact('summarizes', 'title', 'description', 'thumbnail', 'lessons', 'lessons_des', 'background', 'background_des', 'character', 'character_des'));
+  }
+
 
 
   public function sendPromptDetail(Request $request)

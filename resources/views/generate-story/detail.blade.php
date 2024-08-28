@@ -59,3 +59,19 @@
     </div>
   </div>
 @endsection
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Lấy tất cả các form trên trang
+    const forms = document.querySelectorAll('form');
+
+    // Gán sự kiện submit cho từng form
+    forms.forEach(function(form) {
+      form.addEventListener('submit', function () {
+        const loading = document.getElementById('loading');
+        if (loading) {
+          loading.style.display = 'block';
+        }
+      });
+    });
+  });
+</script>

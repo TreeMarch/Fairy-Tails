@@ -6,6 +6,7 @@ use App\Http\Controllers\user_management\create_user\CreateUserControllerUi;
 use App\Http\Controllers\user_management\delete_user\DeleteUserController;
 use App\Http\Controllers\user_management\detail_user\DetailUserController;
 use App\Http\Controllers\user_management\edit_user\EditUserController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\dashboard\Analytics;
 use App\Http\Controllers\layouts\WithoutMenu;
@@ -57,18 +58,21 @@ use App\Http\Controllers\user_management\show_user\ShowUserController;
 use App\Http\Controllers\generate_story\generate\GenerateStoryControllerUi;
 use App\Http\Controllers\generate_story\generate\GenerateStoryController;
 
+use App\Http\Controllers\generate_story\summarize\SummarizeControllerUi as SummarizeControllerUi;
+use App\Http\Controllers\generate_story\summarize\SummarizeController as  SummarizeController;
+
 
 // Main Page Route
 Route::get('/', [Analytics::class, 'index'])->name('dashboard-analytics');
+//Route::get('/', function () {
+//  return view('welcome');
+//});
+
+// Main Page Route
 Route::get('/share-story',[MiscUnderMaintenance::class, 'index'])->name('share-story');
 
 
 //=====================================================================================================================
-//use App\Http\Controllers\generate_story\generate\GenerateStoryControllerUi as GenerateStoryControllerUi;
-//use App\Http\Controllers\generate_story\generate\GenerateStoryController as  GenerateStoryController;
-use App\Http\Controllers\generate_story\summarize\SummarizeControllerUi as SummarizeControllerUi;
-use App\Http\Controllers\generate_story\summarize\SummarizeController as  SummarizeController;
-
 
 
 Route::get('/tables/basic',[ShowUserController::class,'index'])->name('tables.basic');
@@ -102,6 +106,8 @@ Route::post('/generate-story', [GenerateStoryController::class, 'index'])->name(
 
 // Route để hiển thị chi tiết câu chuyện sau khi được generate
 Route::get('/generate-story-detail/{id}', [GenerateStoryController::class, 'generateDetail'])->name('generate.story.detail');
+Route::post('/generate-story-reset', [GenerateStoryController::class, 'resetStory'])->name('generate.story.reset');
+
 
 // Route để gọi phương thức sendPromptDetail
 Route::post('/generate-story-detail', [GenerateStoryController::class, 'sendPromptDetail'])->name('generate.story.summarize-form');
