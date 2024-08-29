@@ -27,5 +27,24 @@ class Chapter extends Model
   {
     return $this->hasMany(Dialogue::class, 'chapter_id', 'id');
   }
+  public function getListPhotoAttribute()
+  {
+    $array_image = [];
+    if ($this->thumbnail_url) {
+      $array_image = explode(',', $this->thumbnail_url);
+    }
+    return $array_image;
+  }
+
+  public function getDefaultThumbnailAttribute()
+  {
+    $array_image = $this->listPhoto;
+    if (count($array_image) > 0) {
+      return $array_image[0];
+    } else {
+      return 'https://link-anh-default.jpg';
+    }
+  }
+
 
 }

@@ -72,8 +72,6 @@ use App\Http\Requests\GenerateStoryRequest as ValidateRequest;
     $responseData = json_decode($response->getBody(), true);
     $answers = json_decode($responseData['choices'][0]['message']['content'], true);
 
-
-
 //     Lưu kết quả vào cơ sở dữ liệu
     foreach ($answers as $answer) {
       $summarizes = new Summarize();
@@ -332,7 +330,27 @@ use App\Http\Requests\GenerateStoryRequest as ValidateRequest;
 //    ]);
 //  }
 
+  public function uploadImage(Request $request, $id)
+  {
+    // Lấy chapter_id từ request
+    $chapterId = $request->input('chapter_id');
 
+    // Lấy chapter dựa trên chapter_id
+    $chapter = Chapter::findOrFail($chapterId);
+
+    // Cập nhật thumbnail_url nếu có
+    $thumbnailUrl = $request->input('thumbnail_url');
+    if ($thumbnailUrl) {
+      $chapter->thumbnail_url = $thumbnailUrl;
+      $chapter->updated_at = now();
+      $chapter->save();
+    }
+
+    // Bạn có thể thêm các logic khác để xử lý dữ liệu từ form tại đây
+
+    // Chuyển hướng về lại trang chi tiết sau khi xử lý
+    return redirect()->route('generate.story.chapter', ['id' => $id])->with('success', 'Chapter updated successfully.');
+  }
 
 
 

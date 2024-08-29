@@ -31,26 +31,14 @@
           "target": "_blank"
         },
         {
-          "url": "/user-management/create-user",
-          "name": "Chỉnh sửa truyện",
-          "slug": "laravel-example-user-management",
-          "target": "_blank"
-        },
-        {
-          "url": "/story-management/summarize-story-ui",
-          "name": "Truyện ngắn",
-          "slug": "laravel-example-user-management",
-          "target": "_blank"
-        },
-        {
           "url": "/share-story",
           "name": "Chia sẻ truyện",
           "slug": "laravel-example-user-management",
           "target": "_blank"
         },
         {
-          "name": "Đọc truyện",
-          "url": "/test2",
+          "name": "Truyện đã tạo",
+          "url": "/",
           "slug": "laravel-example-user-management",
           "target": "_blank"
         }

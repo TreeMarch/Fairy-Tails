@@ -85,6 +85,7 @@ Route::post('/tables/add-user', [CreateUserController::class, 'index']);
 
 //Detail
 Route::get('/user-management/{id}/details-user', [DetailUserController::class, 'detail'])->name('users.detail');
+Route::post('/account/update-avatar', [DetailUserController::class, 'updateAvatar'])->name('user.updateAvatar');
 
 //Edit
 Route::get('/user-management/{id}/edit-user', [EditUserController::class, 'edit'])->name('users.edit');
@@ -114,6 +115,7 @@ Route::post('/generate-story-detail', [GenerateStoryController::class, 'sendProm
 
 // Route để hiển thị các chapter
 Route::get('/generate-chapter-detail/{id}', [GenerateStoryController::class, 'showChapter'])->name('generate.story.chapter');
+Route::post('/generate-chapter-detail/{id}', [GenerateStoryController::class, 'uploadImage'])->name('generate.story.uploadImage');
 
 // Route để chỉnh sửa các chương của câu chuyện
 Route::get('/generate-story-detail/{id}/edit', [GenerateStoryController::class, 'editChapter'])->name('generate.story.edit');
