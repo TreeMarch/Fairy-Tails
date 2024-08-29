@@ -15,60 +15,61 @@
 @endsection
 
 @section('content')
+  <style>
+    h3{
+      font-size: 1.75rem!important;
+      font-weight: 700!important;
+    }
+    p{
+      font-size: 16px!important ;
+      padding: 0!important;
+      margin-bottom: 8px;
+    }
+    .btn{
+      font-size: 12px!important;
+    }
+  </style>
   <small class="text-light fw-medium">RECENT STORIES</small>
-  <div class="card">
-    <div class="card-header">
-      <div style="display: flex;justify-content: space-between;padding-bottom: 20px;align-items: center">
-        <h5>Stories</h5>
-        <form action="" method="get">
-          <div class="input-group input-group-sm " style="width: 150px">
-            <input type="text" name="key" id="search" class="form-control pull-left"
-                   placeholder="Search stories..." value="{{request()->input('key')}}">
-            <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-default">
-                  <i class="fa fa-search"></i>
-                </button>
-              </span>
-          </div>
-        </form>
-      </div>
-      <div class="table-responsive text-nowrap">
-        <table class="table">
-          <thead>
-          <tr>
-            <th>ID</th>
-            <th>Story ID</th>
-            <th>Title</th>
-            <th>Content</th>
-            <th>Thumbnail</th>
-            <th>Created At</th>
-          </tr>
-          </thead>
-          <tbody class="table-border-bottom-0">
-          @foreach ($stories as $story)
-            <tr>
-              <td>{{ $story->id }}</td>
-              <td>{{ $story->story_id }}</td>
-              <td style="white-space: normal;">{{ $story->title }}</td>
-              <td style="white-space: normal;">{{ $story->content }}</td>
-              <td>
-                <img src="{{ $story->thumbnails_url }}" alt="Thumbnail" style="width: 100px; height: auto;">
-              </td>
-              <td>{{ $story->created_at }}</td>
-            </tr>
-          @endforeach
-          </tbody>
-        </table>
-        <div style="display:flex;justify-content:space-between;align-items:center;padding-top: 20px">
-          <div>
-            Showing {{ $stories->firstItem() }} to {{ $stories->lastItem() }} of
-            {{ $stories->total() }} entries
-          </div>
-          <div>
-            {!!  $stories->links('vendor.pagination.paginate') !!}
+  <div class="row mb-12">
+    @foreach($stories as $story)
+      <form action="/reading-story-detail/{{$story->story_id}}" method="get" class="col-lg-6 col-md-12 mb-6">
+        <div class="card">
+          <div class="d-flex">
+            <div>
+              <img class="card-img card-img-left h-100 w-100 object-fit-cover" src="{{$story->thumbnails_url}}" alt="Card image">
+            </div>
+            <div>
+              <div class="card-body">
+                <h3 class="card-title mt-4 mb-4">{{ Str::limit($story->title, 12, '...') }}</h3>
+                <p class="card-text">
+                  {{ Str::limit($story->content, 120, '...') }}
+                </p>
+                <p class="card-text"><small class="text-muted">{{$story->created_at}}</small></p>
+               <div class="d-flex g-2 justify-content-start row">
+                 <button type="submit" class="btn btn-primary me-4 col-lg col-md col-sm">Đọc truyện</button>
+                 <a href="/generate-story-detail/{{$story->story_id}}/edit" class="btn btn-primary col-lg col-md col-sm">Chỉnh sửa</a>
+               </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
+      </form>
+    @endforeach
   </div>
 @endsection
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Lấy tất cả các form trên trang
+    const forms = document.querySelectorAll('form');
+
+    // Gán sự kiện submit cho từng form
+    forms.forEach(function(form) {
+      form.addEventListener('submit', function () {
+        const loading = document.getElementById('loading');
+        if (loading) {
+          loading.style.display = 'block';
+        }
+      });
+    });
+  });
+</script>

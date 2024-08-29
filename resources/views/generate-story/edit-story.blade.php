@@ -3,8 +3,14 @@
 @section('title', 'Edit Story')
 
 @section('content')
+  <style>
+    textarea{
+      resize: none;
+    }
+
+  </style>
   @include('alert-message')
-  <h5 class="mb-4">Edit Story</h5>
+  <h5 class="mb-4">Chỉnh sửa truyện</h5>
 
   <div class="row">
     <div class="col-md">
@@ -15,11 +21,11 @@
         {{-- Story Title --}}
         <div class="card mb-4">
           <div class="card-header">
-            <h5>Story Title</h5>
+            <h4>Tiêu đề truyện</h4>
           </div>
           <div class="card-body">
             <div class="form-group mb-3">
-              <label for="title">Title:</label>
+              <label for="title">Tên câu truyện:</label>
               <input type="text" class="form-control" name="title" value="{{ $story->title }}" required>
             </div>
           </div>
@@ -29,15 +35,15 @@
         @foreach($chapters as $chapter)
           <div class="card mb-4">
             <div class="card-body">
-              <h5>Chapter {{ $loop->iteration }}: {{ $chapter->heading }}</h5>
+              <h4>Chương {{ $loop->iteration }}: {{ $chapter->heading }}</h4>
 
               <div class="form-group mb-3">
-                <label for="heading">Chapter Heading:</label>
+                <label for="heading">Tiêu đề chương:</label>
                 <input type="text" class="form-control" name="headings[]" value="{{ $chapter->heading }}">
               </div>
 
               <div class="form-group mb-3">
-                <label for="description">Description:</label>
+                <label for="description">Mô tả:</label>
                 <textarea class="form-control" name="descriptions[]" rows="4">{{ $chapter->description }}</textarea>
               </div>
 
@@ -47,8 +53,8 @@
         @endforeach
 
         {{-- Submit Button --}}
-        <div class="d-flex justify-content-end">
-          <button type="submit" class="btn btn-primary">Update Story</button>
+        <div class="d-flex justify-content-center">
+          <button type="submit" class="btn btn-primary">Cập nhật thay đổi truyện </button>
         </div>
       </form>
     </div>
