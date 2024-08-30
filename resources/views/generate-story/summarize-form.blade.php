@@ -74,6 +74,27 @@
         }
       });
     });
+
+    // Gán sự kiện loading cho nút "Reset"
+    const resetButton = document.querySelector('button[onclick*="reset-story-form"]');
+    if (resetButton) {
+      resetButton.addEventListener('click', function () {
+        const loading = document.getElementById('loading');
+        if (loading) {
+          loading.style.display = 'block';
+        }
+      });
+    }
+
+    // Gán sự kiện loading cho nút "Back to Generate"
+    const backButton = document.querySelector('button[onclick*="window.location"]');
+    if (backButton) {
+      backButton.addEventListener('click', function () {
+        const loading = document.getElementById('loading');
+        if (loading) {
+          loading.style.display = 'block';
+        }
+      });
+    }
   });
 </script>
-

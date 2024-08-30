@@ -11,6 +11,7 @@ use App\Models\Story;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
 use App\Http\Requests\GenerateStoryRequest as ValidateRequest;
@@ -41,7 +42,7 @@ use App\Http\Requests\GenerateStoryRequest as ValidateRequest;
     $this->character_des = $request->input('character-2');
   }
   // Xử lý message người dùng nhập vào và save vào DB
-  public  function index()
+  public function index()
   {
     // Tạo message dựa trên input người dùng
     $message = 'Viết cho tôi 3 câu truyện tóm tắt từ những gợi ý dưới đây tên truyện có gợi ý là "' . $this->title . '", Mô tả thêm về câu truyện có gợi ý là: "' . $this->description . '" nội dung câu chuyện xoay quanh nhân vật có gợi ý là'.$this->character.' (mô tả thêm: '.$this->character_des.' ) , bối cảnh câu truyện có gợi ý là trong  ' . $this->background ."(mô tả thêm:" . $this->background_des . "), Bài học rút ra sau câu truyện là:" . $this->lessons_string ."(mô tả thêm:" . $this->lessons_des ."). ".'.
@@ -58,7 +59,7 @@ use App\Http\Requests\GenerateStoryRequest as ValidateRequest;
         'Content-Type' => 'application/json',
       ],
       'json' => [
-        'model' => 'gpt-3.5-turbo',
+        'model' => 'gpt-4',
         'messages' => [
           [
             'role' => 'user',
@@ -68,33 +69,39 @@ use App\Http\Requests\GenerateStoryRequest as ValidateRequest;
       ],
     ]);
 
-    // Giả sử response từ OpenAI là dạng JSON với các trường Title, Description, thumbnail_url
+    // Xử lý phản hồi từ OpenAI API
     $responseData = json_decode($response->getBody(), true);
     $answers = json_decode($responseData['choices'][0]['message']['content'], true);
 
-//     Lưu kết quả vào cơ sở dữ liệu
-    foreach ($answers as $answer) {
-      $summarizes = new Summarize();
-      $summarizes->story_id = $this->random_story_id;
-      $summarizes->title = $answer['Title'];
-      $summarizes->description = $answer['Description'];
-      $summarizes->status = 1;
-      $summarizes->thumbnail_url = $answer['Thumbnail_url'];
-      $summarizes->created_at = Carbon::now();
-      $summarizes->updated_at = Carbon::now();
-      $summarizes->deleted_at = Carbon::now();
-      $summarizes->created_by = "user";
-      $summarizes->updated_by = "user";
-      $summarizes->deleted_by = null; // Không xóa thì set null
-//
-      $summarizes->save();
+    // Kiểm tra nếu $answers là một mảng và không trống
+    if (is_array($answers) && !empty($answers)) {
+      foreach ($answers as $answer) {
+        // Lưu kết quả vào cơ sở dữ liệu
+        $summarizes = new Summarize();
+        $summarizes->story_id = $this->random_story_id;
+        $summarizes->title = $answer['Title'];
+        $summarizes->description = $answer['Description'];
+        $summarizes->status = 1;
+        $summarizes->thumbnail_url = $answer['Thumbnail_url'];
+        $summarizes->created_at = Carbon::now();
+        $summarizes->updated_at = Carbon::now();
+        $summarizes->deleted_at = Carbon::now();
+        $summarizes->created_by = "user";
+        $summarizes->updated_by = "user";
+        $summarizes->deleted_by = null; // Không xóa thì set null
+
+        $summarizes->save();
+      }
+    } else {
+      // Ghi log hoặc xử lý nếu không có dữ liệu hợp lệ
+      Log::error('Invalid API response: ' . json_encode($responseData));
+      return redirect()->back()->with('error', 'Failed to generate stories.');
     }
 
-//    return $message;
-//    return $answers;
     // Chuyển hướng đến trang chi tiết với story_id
     return redirect()->route('generate.story.detail', ['id' => $this->random_story_id]);
   }
+
 
   public function generateDetail(Request $request, $id)
   {
@@ -152,7 +159,7 @@ use App\Http\Requests\GenerateStoryRequest as ValidateRequest;
         'Content-Type' => 'application/json',
       ],
       'json' => [
-        'model' => 'gpt-3.5-turbo',
+        'model' => 'gpt-4',
         'messages' => [
           [
             'role' => 'user',
@@ -231,58 +238,66 @@ use App\Http\Requests\GenerateStoryRequest as ValidateRequest;
     $responseData = json_decode($response->getBody(), true);
     $answers = json_decode($responseData['choices'][0]['message']['content'], true);
 
-    // Lưu các chapters và dialogues vào cơ sở dữ liệu
-    foreach ($answers['Chapter'] as $answer) {
-      // Tạo chapter_id duy nhất cho mỗi chương
-      $chapter_id = "001" . Str::random(6);
+    // Kiểm tra nếu $answers là một mảng và có chứa các chapter
+    if (is_array($answers) && isset($answers['Chapter']) && is_array($answers['Chapter'])) {
+      foreach ($answers['Chapter'] as $answer) {
+        // Tạo chapter_id duy nhất cho mỗi chương
+        $chapter_id = "001" . Str::random(6);
 
-      $chapter = new Chapter();
-      $chapter->story_id = $this->random_story_id;
-      $chapter->chapter_id = $chapter_id;
-      $chapter->heading = $answer['Heading'];
-      $chapter->description = $answer['Description'];
-      $chapter->thumbnail_url = "https://res.cloudinary.com/dzxsq1qig/image/upload/v1724060252/img-example_kz7ttf.png";
-      $chapter->created_at = Carbon::now();
-      $chapter->updated_at = Carbon::now();
-      $chapter->deleted_at = Carbon::now();
-      $chapter->created_by = "user";
-      $chapter->updated_by = "user";
-      $chapter->deleted_by = null; // Không xóa thì set null
-      $chapter->save();
+        $chapter = new Chapter();
+        $chapter->story_id = $this->random_story_id;
+        $chapter->chapter_id = $chapter_id;
+        $chapter->heading = $answer['Heading'];
+        $chapter->description = $answer['Description'];
+        $chapter->thumbnail_url = "https://res.cloudinary.com/dzxsq1qig/image/upload/v1724060252/img-example_kz7ttf.png";
+        $chapter->created_at = Carbon::now();
+        $chapter->updated_at = Carbon::now();
+        $chapter->deleted_at = Carbon::now();
+        $chapter->created_by = "user";
+        $chapter->updated_by = "user";
+        $chapter->deleted_by = null; // Không xóa thì set null
+        $chapter->save();
 
-      // Lưu các đoạn hội thoại (dialogues) liên quan đến chương
-      foreach ($answer['Dialogue'] as $dialogueContent) {
-        $dialogue = new Dialogue();
-        $dialogue->chapter_id = $chapter->id; // Liên kết dialogue với chapter
-        $dialogue->content = $dialogueContent;
-        $dialogue->created_by = "user";
-        $dialogue->updated_by = "user";
-        $dialogue->deleted_by = null;
-        $dialogue->created_at = Carbon::now();
-        $dialogue->updated_at = Carbon::now();
-        $dialogue->deleted_at = null;
-        $dialogue->save();
+        // Lưu các đoạn hội thoại (dialogues) liên quan đến chương
+        foreach ($answer['Dialogue'] as $dialogueContent) {
+          $dialogue = new Dialogue();
+          $dialogue->chapter_id = $chapter->id; // Liên kết dialogue với chapter
+          $dialogue->content = $dialogueContent;
+          $dialogue->created_by = "user";
+          $dialogue->updated_by = "user";
+          $dialogue->deleted_by = null;
+          $dialogue->created_at = Carbon::now();
+          $dialogue->updated_at = Carbon::now();
+          $dialogue->deleted_at = null;
+          $dialogue->save();
+        }
       }
+
+      // Lưu thông tin của story
+      $story = new Story();
+      $story->story_id = $this->random_story_id;
+      $story->account_id = "aido123123";
+      $story->title = $answers['Title'];
+      $story->content = $answers['Content'];
+      $story->thumbnails_url = "https://res.cloudinary.com/dzxsq1qig/image/upload/v1724060252/img-example_kz7ttf.png";
+      $story->created_at = Carbon::now();
+      $story->updated_at = Carbon::now();
+      $story->deleted_at = Carbon::now();
+      $story->created_by = "user";
+      $story->updated_by = "user";
+      $story->deleted_by = null; // Không xóa thì set null
+      $story->save();
+
+      // Chuyển hướng đến trang chi tiết với story_id
+      return redirect()->route('generate.story.chapter', ['id' => $this->random_story_id]);
+
+    } else {
+      // Ghi log hoặc xử lý nếu không có dữ liệu hợp lệ
+      Log::error('Invalid API response for detail: ' . json_encode($responseData));
+      return redirect()->back()->with('error', 'Failed to generate detailed story.');
     }
-
-    // Lưu thông tin của story
-    $story = new Story();
-    $story->story_id = $this->random_story_id;
-    $story->account_id = "aido123123";
-    $story->title = $answers['Title'];
-    $story->content = $answers['Content'];
-    $story->thumbnails_url = "https://res.cloudinary.com/dzxsq1qig/image/upload/v1724060252/img-example_kz7ttf.png";
-    $story->created_at = Carbon::now();
-    $story->updated_at = Carbon::now();
-    $story->deleted_at = Carbon::now();
-    $story->created_by = "user";
-    $story->updated_by = "user";
-    $story->deleted_by = null; // Không xóa thì set null
-    $story->save();
-
-    // Chuyển hướng đến trang chi tiết với story_id
-    return redirect()->route('generate.story.chapter', ['id' => $this->random_story_id]);
   }
+
 
 
   public function showChapter($id)
